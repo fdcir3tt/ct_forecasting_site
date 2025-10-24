@@ -1,0 +1,24 @@
+---
+title: "Modelo predictor de ventas"
+format: 
+    html:
+         page-layout: article
+toc: false
+author: 
+  - name: "Federico Cirett Torres"
+    email: "fd.cirett@gmail.com"     # Aparece un icono de correo
+    url: "https://www.linkedin.com/in/federico-cirett-torres"          # Aparece icono de web si quieres
+    affiliations:
+        - name : "[📄 CV]()"
+  - name: "Gerardo Leyva Conde"
+  - name: "Roberto Navarro Bartolini"
+  - name: "Abraham Rojo Salazar"
+date: last-modified
+date-format: long
+lang: es
+---
+
+::: {style="text-align: justify"}
+# Contexto:
+
+:::
