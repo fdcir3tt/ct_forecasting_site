@@ -312,6 +312,52 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div style="text-align: justify">
+<section id="estructura" class="level2">
+<h2 class="anchored" data-anchor-id="estructura">Estructura</h2>
+<pre><code>├── .dvc                 # Configuración de DVC y caché de datos
+│   ├── cache/files/md5/...  # Archivos de caché de datos versionados
+│   └── tmp               # Archivos temporales de DVC
+├── .pytest_cache/v/cache # Caché de pruebas automatizadas (pytest)
+├── data                  # Datos del proyecto
+│   ├── interim           # Datos intermedios procesados
+│   └── raw               # Datos originales sin procesar
+├── metrics               # Resultados y métricas de evaluación
+├── models                # Modelos entrenados
+├── notebooks             # Notebooks de análisis y experimentos
+├── references            # Referencias y documentación
+│   ├── dictionaries      # Diccionarios y mappings
+│   ├── literature        # Artículos, papers y referencias bibliográficas
+│   ├── notes             # Notas del proyecto
+│   └── other             # Otros recursos
+├── reports               # Reportes generados
+│   ├── data              # Datos para reportes
+│   ├── plots             # Gráficas de reportes
+│   │   ├── clusters/wordclouds/tf_idf/...  # Visualizaciones de clusters
+│   │   ├── empiric/benford/...             # Análisis de Benford por región
+│   │   ├── empiric/pareto/...              # Análisis Pareto por región
+│   │   └── outliers/...                    # Detección de outliers
+│   └── weekly            # Reportes semanales
+│       ├── markdown      # Markdowns de reportes semanales
+│       └── pdf           # PDFs generados
+├── scripts/__pycache__   # Archivos compilados de Python
+├── sql                   # Consultas y scripts SQL
+├── src                   # Código fuente principal
+└── tests/__pycache__     # Caché de pruebas automatizadas</code></pre>
+</section>
+<section id="tech-stack" class="level2">
+<h2 class="anchored" data-anchor-id="tech-stack">Tech Stack</h2>
+<ul>
+<li><strong>Lenguaje</strong> : Python 3.12</li>
+<li><strong>Bases de datos</strong> : MySQL (mysql-connector-python)</li>
+<li><strong>Análisis de Datos y Reportes</strong> : Pandas</li>
+</ul>
+</section>
+<section id="licencia" class="level2">
+<h2 class="anchored" data-anchor-id="licencia">Licencia</h2>
+<p>Este proyecto se rige bajo la licencia de MIT.</p>
+</section>
+</div>
 
 
 

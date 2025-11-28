@@ -1,17 +1,31 @@
 [
   {
-    "objectID": "home.html",
-    "href": "home.html",
-    "title": "Modelo predictor de ventas",
-    "section": "",
-    "text": "Contexto:\n\n\n\n\n Volver arriba"
-  },
-  {
     "objectID": "documentacion.html",
     "href": "documentacion.html",
     "title": "Documentación",
     "section": "",
-    "text": "Back to top"
+    "text": "├── .dvc                 # Configuración de DVC y caché de datos\n│   ├── cache/files/md5/...  # Archivos de caché de datos versionados\n│   └── tmp               # Archivos temporales de DVC\n├── .pytest_cache/v/cache # Caché de pruebas automatizadas (pytest)\n├── data                  # Datos del proyecto\n│   ├── interim           # Datos intermedios procesados\n│   └── raw               # Datos originales sin procesar\n├── metrics               # Resultados y métricas de evaluación\n├── models                # Modelos entrenados\n├── notebooks             # Notebooks de análisis y experimentos\n├── references            # Referencias y documentación\n│   ├── dictionaries      # Diccionarios y mappings\n│   ├── literature        # Artículos, papers y referencias bibliográficas\n│   ├── notes             # Notas del proyecto\n│   └── other             # Otros recursos\n├── reports               # Reportes generados\n│   ├── data              # Datos para reportes\n│   ├── plots             # Gráficas de reportes\n│   │   ├── clusters/wordclouds/tf_idf/...  # Visualizaciones de clusters\n│   │   ├── empiric/benford/...             # Análisis de Benford por región\n│   │   ├── empiric/pareto/...              # Análisis Pareto por región\n│   │   └── outliers/...                    # Detección de outliers\n│   └── weekly            # Reportes semanales\n│       ├── markdown      # Markdowns de reportes semanales\n│       └── pdf           # PDFs generados\n├── scripts/__pycache__   # Archivos compilados de Python\n├── sql                   # Consultas y scripts SQL\n├── src                   # Código fuente principal\n└── tests/__pycache__     # Caché de pruebas automatizadas\n\n\n\n\nLenguaje : Python 3.12\nBases de datos : MySQL (mysql-connector-python)\nAnálisis de Datos y Reportes : Pandas\n\n\n\n\nEste proyecto se rige bajo la licencia de MIT."
+  },
+  {
+    "objectID": "documentacion.html#estructura",
+    "href": "documentacion.html#estructura",
+    "title": "Documentación",
+    "section": "",
+    "text": "├── .dvc                 # Configuración de DVC y caché de datos\n│   ├── cache/files/md5/...  # Archivos de caché de datos versionados\n│   └── tmp               # Archivos temporales de DVC\n├── .pytest_cache/v/cache # Caché de pruebas automatizadas (pytest)\n├── data                  # Datos del proyecto\n│   ├── interim           # Datos intermedios procesados\n│   └── raw               # Datos originales sin procesar\n├── metrics               # Resultados y métricas de evaluación\n├── models                # Modelos entrenados\n├── notebooks             # Notebooks de análisis y experimentos\n├── references            # Referencias y documentación\n│   ├── dictionaries      # Diccionarios y mappings\n│   ├── literature        # Artículos, papers y referencias bibliográficas\n│   ├── notes             # Notas del proyecto\n│   └── other             # Otros recursos\n├── reports               # Reportes generados\n│   ├── data              # Datos para reportes\n│   ├── plots             # Gráficas de reportes\n│   │   ├── clusters/wordclouds/tf_idf/...  # Visualizaciones de clusters\n│   │   ├── empiric/benford/...             # Análisis de Benford por región\n│   │   ├── empiric/pareto/...              # Análisis Pareto por región\n│   │   └── outliers/...                    # Detección de outliers\n│   └── weekly            # Reportes semanales\n│       ├── markdown      # Markdowns de reportes semanales\n│       └── pdf           # PDFs generados\n├── scripts/__pycache__   # Archivos compilados de Python\n├── sql                   # Consultas y scripts SQL\n├── src                   # Código fuente principal\n└── tests/__pycache__     # Caché de pruebas automatizadas"
+  },
+  {
+    "objectID": "documentacion.html#tech-stack",
+    "href": "documentacion.html#tech-stack",
+    "title": "Documentación",
+    "section": "",
+    "text": "Lenguaje : Python 3.12\nBases de datos : MySQL (mysql-connector-python)\nAnálisis de Datos y Reportes : Pandas"
+  },
+  {
+    "objectID": "documentacion.html#licencia",
+    "href": "documentacion.html#licencia",
+    "title": "Documentación",
+    "section": "",
+    "text": "Este proyecto se rige bajo la licencia de MIT."
   },
   {
     "objectID": "comprension_negocio.html",
@@ -19,6 +33,13 @@
     "title": "Comprensión del Negocio",
     "section": "",
     "text": "Back to top"
+  },
+  {
+    "objectID": "home.html",
+    "href": "home.html",
+    "title": "Modelo predictor de ventas",
+    "section": "",
+    "text": "Contexto:\n\n\n\n\n Volver arriba"
   },
   {
     "objectID": "comprension_datos.html",
