@@ -1,3 +1,54 @@
 ---
 title: "Documentación"
 ---
+::: {style="text-align: justify"}
+
+## Estructura
+
+```
+├── .dvc                 # Configuración de DVC y caché de datos
+│   ├── cache/files/md5/...  # Archivos de caché de datos versionados
+│   └── tmp               # Archivos temporales de DVC
+├── .pytest_cache/v/cache # Caché de pruebas automatizadas (pytest)
+├── data                  # Datos del proyecto
+│   ├── interim           # Datos intermedios procesados
+│   └── raw               # Datos originales sin procesar
+├── metrics               # Resultados y métricas de evaluación
+├── models                # Modelos entrenados
+├── notebooks             # Notebooks de análisis y experimentos
+├── references            # Referencias y documentación
+│   ├── dictionaries      # Diccionarios y mappings
+│   ├── literature        # Artículos, papers y referencias bibliográficas
+│   ├── notes             # Notas del proyecto
+│   └── other             # Otros recursos
+├── reports               # Reportes generados
+│   ├── data              # Datos para reportes
+│   ├── plots             # Gráficas de reportes
+│   │   ├── clusters/wordclouds/tf_idf/...  # Visualizaciones de clusters
+│   │   ├── empiric/benford/...             # Análisis de Benford por región
+│   │   ├── empiric/pareto/...              # Análisis Pareto por región
+│   │   └── outliers/...                    # Detección de outliers
+│   └── weekly            # Reportes semanales
+│       ├── markdown      # Markdowns de reportes semanales
+│       └── pdf           # PDFs generados
+├── scripts/__pycache__   # Archivos compilados de Python
+├── sql                   # Consultas y scripts SQL
+├── src                   # Código fuente principal
+└── tests/__pycache__     # Caché de pruebas automatizadas
+```
+
+## Tech Stack
+
+- **Lenguaje** : Python 3.12
+- **Bases de datos** : MySQL (mysql-connector-python)
+- **Análisis de Datos y Reportes** : Pandas
+
+
+
+
+
+## Licencia
+Este proyecto se rige bajo la licencia de MIT.
+
+
+:::
