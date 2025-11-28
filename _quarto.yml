@@ -3,6 +3,7 @@ project:
   output-dir: docs
   render: # Renderizar todos los archivos .qmd
     - home.qmd
+    - dashboard.qmd
     - comprension_negocio.qmd
     - comprension_datos.qmd
     - preparacion.qmd
@@ -17,6 +18,8 @@ website:
     left:
       - href: home.qmd
         text: Home
+      - href: dashboard.qmd
+        text: Dashboard 
       - href: comprension_negocio.qmd
         text: Comprensión del negocio
       - href: comprension_datos.qmd

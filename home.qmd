@@ -19,6 +19,9 @@ lang: es
 ---
 
 ::: {style="text-align: justify"}
-# Contexto:
+# Introducción:
+
+Uno de los problemas que CT International enfrenta frecuentemente consiste en determinar la cantidad óptima de unidades de sus productos que deben enviarse a cada una de sus sucursales, con el fin de satisfacer la demanda prevista, minimizando los costos logísticos y las ventas perdidas. Actualmente, se cuenta con un modelo heurístico de estimación para ayudar con esta tarea. El objetivo de este proyecto es optimizar la distribución de productos hacia las sucursales de CT International a través de un nuevo modelo, cuyo éxito se medirá según la capacidad del nuevo modelo de igualar o superar el rendimiento del modelo heurístico existente.
+
 
 :::

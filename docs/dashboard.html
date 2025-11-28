@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Federico Cirett Torres">
+<meta name="author" content="Gerardo Leyva Conde">
+<meta name="author" content="Roberto Navarro Bartolini">
+<meta name="author" content="Abraham Rojo Salazar">
 
-<title>Comprensión del Negocio</title>
+<title>Dashboard de Ventas</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,17 +64,17 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script>
 
@@ -78,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -252,8 +256,8 @@ ul.task-list li input[type="checkbox"] {
     <img src="./ctlogo.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -263,11 +267,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./dashboard.html"> 
+    <a class="nav-link active" href="./dashboard.html" aria-current="page"> 
 <span class="menu-text">Dashboard</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./comprension_negocio.html" aria-current="page"> 
+    <a class="nav-link" href="./comprension_negocio.html"> 
 <span class="menu-text">Comprensión del negocio</span></a>
   </li>  
   <li class="nav-item">
@@ -281,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -290,23 +294,55 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Comprensión del Negocio</h1>
+<h1 class="title">Dashboard de Ventas</h1>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Autores/as</div>
+  <div class="quarto-title-meta-heading">Afiliación</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://www.linkedin.com/in/federico-cirett-torres">Federico Cirett Torres</a> <a href="mailto:fd.cirett@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="">📄 CV</a>
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Gerardo Leyva Conde </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Roberto Navarro Bartolini </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Abraham Rojo Salazar </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">28 de noviembre de 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -316,10 +352,173 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div style="text-align: justify">
+<section id="resumén" class="level1">
+<h1>Resumén:</h1>
+<p>El objetivo de este proyecto es visualizar la distribución de productos en las sucursales de CT International. Actualmente, la empresa gestiona el aspecto logístico mediante archivos de Excel. Se busca optimizar esta tarea mediante una herramienta intuitiva que permita visualizar la información de manera más eficiente. El éxito del proyecto se evaluará en función de la capacidad del dashboard para proporcionar información valiosa a los usuarios de forma diaria.</p>
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- PREPARACIÓN DE DATOS -->
+<!---------------------------------------------------------------------------------------------------------------------->
+</section>
+<section id="preparación-de-datos" class="level1">
+<h1>Preparación de datos</h1>
+<section id="validación-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="validación-de-datos">Validación de datos</h2>
+<p>Para obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos a la mano.</p>
+<section id="validaciones-básicas" class="level3">
+<h3 class="anchored" data-anchor-id="validaciones-básicas">Validaciones básicas</h3>
+<p><strong>Registros no nulos :</strong></p>
+<p>Para nuestro caso, los registros nulos no nos sirven para nada por el momento. Es por ello que los filtraremos del conjunto final de datos.</p>
+<p><strong>Formatos consistentes de columnas :</strong></p>
+<p>Se va definir en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.</p>
+</section>
+<section id="rangos-de-valor-y-duplicidad" class="level3">
+<h3 class="anchored" data-anchor-id="rangos-de-valor-y-duplicidad">Rangos de valor y Duplicidad</h3>
+<p><strong>Suma de ventas por producto total deben ser igual a la suma de categorias total :</strong></p>
+<p>Esta validación consiste en verificar si se hace la agrupación/separación entre productos y categorías correctamente. Para ello, se compara la suma de ventas a nivel producto con la suma de ventas a nivel categoría.</p>
+<p><strong>Precios,costos, cantidades positivas :</strong></p>
+<p>Se revisará que columnas como <code>price</code> ,<code>cost</code>, <code>sales_{frequency}</code> caigan dentro de su rango lógico.</p>
+<p><strong>Precio debe ser mayor a costo :</strong></p>
+<p>Para que nuestro conjunto de datos refleje información que tenga sentido, una debe ser que el precio de producto sea mayor a su costo. Esto es por el contexto del fenómeno.</p>
+<p><strong>Fechas dentro de 2020 y actualidad</strong></p>
+<p>A nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo.</p>
+<p><strong>Velocidad de venta diaria debe ser menor o igual a la venta diaria</strong></p>
+<p>No son validas las velocidades de venta diaria que sean mayores a la venta diaria, ya que es un cociente de esta cantidad.</p>
+<p><strong>Cantidad de folios debe ser igual a la cantidad de registros :</strong></p>
+<p>Esto es para probar la unicidad de la columna de <code>folio</code> con los registros.</p>
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- VISUALIZACIONES -->
+<!---------------------------------------------------------------------------------------------------------------------->
+</section>
+</section>
+</section>
+<section id="visualizaciones" class="level1">
+<h1>Visualizaciones</h1>
+<section id="ventas" class="level2">
+<h2 class="anchored" data-anchor-id="ventas">Ventas</h2>
+<p><strong>Objetivo:</strong> Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado.</p>
+<p><strong>Variables:</strong> Se toman en cuenta las variables <code>date</code> y <code>sales_{frecuencia}</code> como los ejes horizontal y vertical respectivamente donde frecuencia indica si se trata de ventas diarias,semanales o mensuales.</p>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/almacen_ventas.png?updated=1" alt="ventas" width="500">
+</p>
+</section>
+<section id="rápidez-de-ventas" class="level2">
+<h2 class="anchored" data-anchor-id="rápidez-de-ventas">Rápidez de Ventas</h2>
+<p><strong>Objetivo:</strong> Se tiene en mente comparar la velocidad de venta de los productos seleccionados,(máximo 4 productos), para ayudar predecir la demanda de dichos productos.</p>
+<p><strong>Variables:</strong> Se toman en cuenta las variables <code>date</code> y <code>sales_velocity_{frequency}</code> como los ejes horizontal y vertical respectivamente donde <code>frecuency</code> indica si se trata de ventas diarias,semanales o mensuales.</p>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/almacen_v_rapidez_ventas.png?updated=1" alt="rapidez_ventas" width="500">
+</p>
+</section>
+<section id="histograma-de-ventas" class="level2">
+<h2 class="anchored" data-anchor-id="histograma-de-ventas">Histograma de ventas</h2>
+<p><strong>Objetivo:</strong> Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Sólo se puede seleccionar uno a la vez. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial.</p>
+<p><strong>Variables:</strong> Se toman en cuenta las variables <code>date</code> y <code>quantity</code> como los ejes horizontal y vertical respectivamente.</p>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/hist_ventas_prod.png?updated=1" alt="histograma" width="500">
+</p>
+</section>
+<section id="mapa-de-calor-de-ventas" class="level2">
+<h2 class="anchored" data-anchor-id="mapa-de-calor-de-ventas">Mapa de Calor de Ventas</h2>
+<p><strong>Objetivo:</strong> Visualizar áreas geográficas en donde hay más actividad de ventas. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.</p>
+<p><strong>Variables:</strong> Se utilizan las variables <code>state</code>,<code>quantity</code> y el archivo <em>gadm41_MEX_shp/gadm41_MEX_1.shp</em> para realizar el mapa de calor. La variable <code>quantity</code> se suma por estado y se hace una unión entre tablas sobre <code>state</code>.</p>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/heatmap_ventas_mexico.png?updated=1" alt="dashboard1" width="500">
+</p>
+</section>
+<section id="kpis" class="level2">
+<h2 class="anchored" data-anchor-id="kpis">KPIs</h2>
+<p><strong>Objetivo:</strong> Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las ventas totales,costo total, la ganancia total, y el cociente de inventario del producto seleccionado,(sólo uno a la vez).</p>
+<p><strong>Variables:</strong> Estos son los KPIs en cuestión y el cómo se obtienen:</p>
+<ul>
+<li><p><code>total_sales</code> : Se suman todos los valores de <code>quantity</code></p></li>
+<li><p><code>total_profit</code> : Se suman todos los valores de <code>profit</code></p></li>
+<li><p><code>total_cost</code> : Se multiplica <code>cost</code> por <code>total_sales</code></p></li>
+<li><p><code>inventory_t_ratio</code> : Se divide <code>total_cost</code> entre el valor promedio de inventario del producto seleccionado.</p></li>
+</ul>
+</section>
+<section id="ventas-por-producto" class="level2">
+<h2 class="anchored" data-anchor-id="ventas-por-producto">Ventas por producto</h2>
+<p><strong>Objetivo:</strong> Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més.</p>
+<p><strong>Variables:</strong> Se utilizaron las variables <code>date</code>,<code>quantity</code>,<code>cost</code> para crear las características:</p>
+<ul>
+<li><p><code>cost</code> : Costo del producto</p></li>
+<li><p><code>total_sales</code> : Se suman todos los valores de <code>quantity</code> por producto agrupado</p></li>
+<li><p><code>annual_value</code> : Multiplicación de los valores de <code>total_sales</code> y <code>cost</code></p></li>
+<li><p><code>cummulative_val</code>: Se ordena el dataframe de mayor a menor valor de <code>annual_value</code> y se suma cumulativamente <code>annual_value</code> entre el total de este mismo.</p></li>
+<li><p><code>priority</code>: Se le aplica un método de clasificación a <code>cummulative_val</code></p></li>
+</ul>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/productos_abc_chart.png?updated=1" alt="dashboard1" width="500">
+</p>
+</section>
+<section id="ventas-por-categoría" class="level2">
+<h2 class="anchored" data-anchor-id="ventas-por-categoría">Ventas por categoría</h2>
+<p><strong>Objetivo:</strong> Mismo objetivo que el de ventas por producto, mismo método. Lo único que cambía es como se agrupan los datos para generar la gráfica en base las categorías.</p>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/categorias_abc_chart.png?updated=1" alt="dashboard1" width="500">
+</p>
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- DOCUMENTACIÓN -->
+<!---------------------------------------------------------------------------------------------------------------------->
+</section>
+</section>
+<section id="documentación" class="level1">
+<h1>Documentación</h1>
+<section id="estructura-de-proyecto" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-de-proyecto">Estructura de proyecto</h2>
+<pre><code>ct_dashboard/
+│
+├── app.py                    # Punto de entrada principal (main)
+│
+│
+├── data/                     # Datos locales (CSV, JSON, etc.)
+│   ├── ventas.csv
+│   └── clientes.csv
+│
+├── src/                      # Código fuente (módulos auxiliares)
+│   ├── __init__.py
+│   ├── data_loader.py        # Funciones para cargar datos
+│   ├── preprocess.py         # Limpieza y transformación de datos
+│   ├── graphs.py             # Funciones para generar gráficos
+│   └── utils.py              # Funciones de utilidad (colores, formatos, etc.)
+│
+├── assets/                   # Recursos estáticos (imágenes, CSS, logos)
+│   ├── logo.png
+│   └── style.css
+│      
+├── .env
+├── license.md
+├── poetry.lock
+├── pyproject.toml            # Dependencias del proyecto
+└── README.md                 # Descripción del proyecto
+</code></pre>
+</section>
+<section id="tech-stack" class="level2">
+<h2 class="anchored" data-anchor-id="tech-stack">Tech Stack</h2>
+<ul>
+<li><strong>Lenguaje</strong> : Python 3.12</li>
+<li><strong>Bases de datos</strong> :Microsoft SQL Server,MongoDB, MySQL (mysql-connector-python)</li>
+<li><strong>Análisis de Datos y Reportes</strong> : Pandas</li>
+<li><strong>Despliegue</strong> : Streamlit</li>
+</ul>
+</section>
+<section id="licencia" class="level2">
+<h2 class="anchored" data-anchor-id="licencia">Licencia</h2>
+<p>Este proyecto se rige bajo la licencia de MIT.</p>
+</section>
+</section>
+</div>
 
 
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -358,12 +557,12 @@ ul.task-list li input[type="checkbox"] {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiado");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiado");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",

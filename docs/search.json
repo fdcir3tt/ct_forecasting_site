@@ -39,7 +39,91 @@
     "href": "home.html",
     "title": "Modelo predictor de ventas",
     "section": "",
-    "text": "Contexto:\n\n\n\n\n Volver arriba"
+    "text": "Introducción:\nUno de los problemas que CT International enfrenta frecuentemente consiste en determinar la cantidad óptima de unidades de sus productos que deben enviarse a cada una de sus sucursales, con el fin de satisfacer la demanda prevista, minimizando los costos logísticos y las ventas perdidas. Actualmente, se cuenta con un modelo heurístico de estimación para ayudar con esta tarea. El objetivo de este proyecto es optimizar la distribución de productos hacia las sucursales de CT International a través de un nuevo modelo, cuyo éxito se medirá según la capacidad del nuevo modelo de igualar o superar el rendimiento del modelo heurístico existente.\n\n\n\n\n Volver arriba"
+  },
+  {
+    "objectID": "dashboard.html",
+    "href": "dashboard.html",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "El objetivo de este proyecto es visualizar la distribución de productos en las sucursales de CT International. Actualmente, la empresa gestiona el aspecto logístico mediante archivos de Excel. Se busca optimizar esta tarea mediante una herramienta intuitiva que permita visualizar la información de manera más eficiente. El éxito del proyecto se evaluará en función de la capacidad del dashboard para proporcionar información valiosa a los usuarios de forma diaria.\n\n\n\n\n\n\n\n\nPara obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos a la mano.\n\n\nRegistros no nulos :\nPara nuestro caso, los registros nulos no nos sirven para nada por el momento. Es por ello que los filtraremos del conjunto final de datos.\nFormatos consistentes de columnas :\nSe va definir en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.\n\n\n\nSuma de ventas por producto total deben ser igual a la suma de categorias total :\nEsta validación consiste en verificar si se hace la agrupación/separación entre productos y categorías correctamente. Para ello, se compara la suma de ventas a nivel producto con la suma de ventas a nivel categoría.\nPrecios,costos, cantidades positivas :\nSe revisará que columnas como price ,cost, sales_{frequency} caigan dentro de su rango lógico.\nPrecio debe ser mayor a costo :\nPara que nuestro conjunto de datos refleje información que tenga sentido, una debe ser que el precio de producto sea mayor a su costo. Esto es por el contexto del fenómeno.\nFechas dentro de 2020 y actualidad\nA nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo.\nVelocidad de venta diaria debe ser menor o igual a la venta diaria\nNo son validas las velocidades de venta diaria que sean mayores a la venta diaria, ya que es un cociente de esta cantidad.\nCantidad de folios debe ser igual a la cantidad de registros :\nEsto es para probar la unicidad de la columna de folio con los registros.\n\n\n\n\n\n\n\n\n\n\nObjetivo: Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado.\nVariables: Se toman en cuenta las variables date y sales_{frecuencia} como los ejes horizontal y vertical respectivamente donde frecuencia indica si se trata de ventas diarias,semanales o mensuales.\nEjemplo:\n\n\n\n\n\n\nObjetivo: Se tiene en mente comparar la velocidad de venta de los productos seleccionados,(máximo 4 productos), para ayudar predecir la demanda de dichos productos.\nVariables: Se toman en cuenta las variables date y sales_velocity_{frequency} como los ejes horizontal y vertical respectivamente donde frecuency indica si se trata de ventas diarias,semanales o mensuales.\nEjemplo:\n\n\n\n\n\n\nObjetivo: Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Sólo se puede seleccionar uno a la vez. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial.\nVariables: Se toman en cuenta las variables date y quantity como los ejes horizontal y vertical respectivamente.\nEjemplo:\n\n\n\n\n\n\nObjetivo: Visualizar áreas geográficas en donde hay más actividad de ventas. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.\nVariables: Se utilizan las variables state,quantity y el archivo gadm41_MEX_shp/gadm41_MEX_1.shp para realizar el mapa de calor. La variable quantity se suma por estado y se hace una unión entre tablas sobre state.\nEjemplo:\n\n\n\n\n\n\nObjetivo: Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las ventas totales,costo total, la ganancia total, y el cociente de inventario del producto seleccionado,(sólo uno a la vez).\nVariables: Estos son los KPIs en cuestión y el cómo se obtienen:\n\ntotal_sales : Se suman todos los valores de quantity\ntotal_profit : Se suman todos los valores de profit\ntotal_cost : Se multiplica cost por total_sales\ninventory_t_ratio : Se divide total_cost entre el valor promedio de inventario del producto seleccionado.\n\n\n\n\nObjetivo: Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més.\nVariables: Se utilizaron las variables date,quantity,cost para crear las características:\n\ncost : Costo del producto\ntotal_sales : Se suman todos los valores de quantity por producto agrupado\nannual_value : Multiplicación de los valores de total_sales y cost\ncummulative_val: Se ordena el dataframe de mayor a menor valor de annual_value y se suma cumulativamente annual_value entre el total de este mismo.\npriority: Se le aplica un método de clasificación a cummulative_val\n\nEjemplo:\n\n\n\n\n\n\nObjetivo: Mismo objetivo que el de ventas por producto, mismo método. Lo único que cambía es como se agrupan los datos para generar la gráfica en base las categorías.\nEjemplo:\n\n\n\n\n\n\n\n\n\n\n\n\nct_dashboard/\n│\n├── app.py                    # Punto de entrada principal (main)\n│\n│\n├── data/                     # Datos locales (CSV, JSON, etc.)\n│   ├── ventas.csv\n│   └── clientes.csv\n│\n├── src/                      # Código fuente (módulos auxiliares)\n│   ├── __init__.py\n│   ├── data_loader.py        # Funciones para cargar datos\n│   ├── preprocess.py         # Limpieza y transformación de datos\n│   ├── graphs.py             # Funciones para generar gráficos\n│   └── utils.py              # Funciones de utilidad (colores, formatos, etc.)\n│\n├── assets/                   # Recursos estáticos (imágenes, CSS, logos)\n│   ├── logo.png\n│   └── style.css\n│      \n├── .env\n├── license.md\n├── poetry.lock\n├── pyproject.toml            # Dependencias del proyecto\n└── README.md                 # Descripción del proyecto\n\n\n\n\n\nLenguaje : Python 3.12\nBases de datos :Microsoft SQL Server,MongoDB, MySQL (mysql-connector-python)\nAnálisis de Datos y Reportes : Pandas\nDespliegue : Streamlit\n\n\n\n\nEste proyecto se rige bajo la licencia de MIT."
+  },
+  {
+    "objectID": "dashboard.html#validación-de-datos",
+    "href": "dashboard.html#validación-de-datos",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Para obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos a la mano.\n\n\nRegistros no nulos :\nPara nuestro caso, los registros nulos no nos sirven para nada por el momento. Es por ello que los filtraremos del conjunto final de datos.\nFormatos consistentes de columnas :\nSe va definir en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.\n\n\n\nSuma de ventas por producto total deben ser igual a la suma de categorias total :\nEsta validación consiste en verificar si se hace la agrupación/separación entre productos y categorías correctamente. Para ello, se compara la suma de ventas a nivel producto con la suma de ventas a nivel categoría.\nPrecios,costos, cantidades positivas :\nSe revisará que columnas como price ,cost, sales_{frequency} caigan dentro de su rango lógico.\nPrecio debe ser mayor a costo :\nPara que nuestro conjunto de datos refleje información que tenga sentido, una debe ser que el precio de producto sea mayor a su costo. Esto es por el contexto del fenómeno.\nFechas dentro de 2020 y actualidad\nA nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo.\nVelocidad de venta diaria debe ser menor o igual a la venta diaria\nNo son validas las velocidades de venta diaria que sean mayores a la venta diaria, ya que es un cociente de esta cantidad.\nCantidad de folios debe ser igual a la cantidad de registros :\nEsto es para probar la unicidad de la columna de folio con los registros."
+  },
+  {
+    "objectID": "dashboard.html#ventas",
+    "href": "dashboard.html#ventas",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Objetivo: Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado.\nVariables: Se toman en cuenta las variables date y sales_{frecuencia} como los ejes horizontal y vertical respectivamente donde frecuencia indica si se trata de ventas diarias,semanales o mensuales.\nEjemplo:"
+  },
+  {
+    "objectID": "dashboard.html#rápidez-de-ventas",
+    "href": "dashboard.html#rápidez-de-ventas",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Objetivo: Se tiene en mente comparar la velocidad de venta de los productos seleccionados,(máximo 4 productos), para ayudar predecir la demanda de dichos productos.\nVariables: Se toman en cuenta las variables date y sales_velocity_{frequency} como los ejes horizontal y vertical respectivamente donde frecuency indica si se trata de ventas diarias,semanales o mensuales.\nEjemplo:"
+  },
+  {
+    "objectID": "dashboard.html#histograma-de-ventas",
+    "href": "dashboard.html#histograma-de-ventas",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Objetivo: Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Sólo se puede seleccionar uno a la vez. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial.\nVariables: Se toman en cuenta las variables date y quantity como los ejes horizontal y vertical respectivamente.\nEjemplo:"
+  },
+  {
+    "objectID": "dashboard.html#mapa-de-calor-de-ventas",
+    "href": "dashboard.html#mapa-de-calor-de-ventas",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Objetivo: Visualizar áreas geográficas en donde hay más actividad de ventas. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.\nVariables: Se utilizan las variables state,quantity y el archivo gadm41_MEX_shp/gadm41_MEX_1.shp para realizar el mapa de calor. La variable quantity se suma por estado y se hace una unión entre tablas sobre state.\nEjemplo:"
+  },
+  {
+    "objectID": "dashboard.html#kpis",
+    "href": "dashboard.html#kpis",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Objetivo: Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las ventas totales,costo total, la ganancia total, y el cociente de inventario del producto seleccionado,(sólo uno a la vez).\nVariables: Estos son los KPIs en cuestión y el cómo se obtienen:\n\ntotal_sales : Se suman todos los valores de quantity\ntotal_profit : Se suman todos los valores de profit\ntotal_cost : Se multiplica cost por total_sales\ninventory_t_ratio : Se divide total_cost entre el valor promedio de inventario del producto seleccionado."
+  },
+  {
+    "objectID": "dashboard.html#ventas-por-producto",
+    "href": "dashboard.html#ventas-por-producto",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Objetivo: Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més.\nVariables: Se utilizaron las variables date,quantity,cost para crear las características:\n\ncost : Costo del producto\ntotal_sales : Se suman todos los valores de quantity por producto agrupado\nannual_value : Multiplicación de los valores de total_sales y cost\ncummulative_val: Se ordena el dataframe de mayor a menor valor de annual_value y se suma cumulativamente annual_value entre el total de este mismo.\npriority: Se le aplica un método de clasificación a cummulative_val\n\nEjemplo:"
+  },
+  {
+    "objectID": "dashboard.html#ventas-por-categoría",
+    "href": "dashboard.html#ventas-por-categoría",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Objetivo: Mismo objetivo que el de ventas por producto, mismo método. Lo único que cambía es como se agrupan los datos para generar la gráfica en base las categorías.\nEjemplo:"
+  },
+  {
+    "objectID": "dashboard.html#estructura-de-proyecto",
+    "href": "dashboard.html#estructura-de-proyecto",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "ct_dashboard/\n│\n├── app.py                    # Punto de entrada principal (main)\n│\n│\n├── data/                     # Datos locales (CSV, JSON, etc.)\n│   ├── ventas.csv\n│   └── clientes.csv\n│\n├── src/                      # Código fuente (módulos auxiliares)\n│   ├── __init__.py\n│   ├── data_loader.py        # Funciones para cargar datos\n│   ├── preprocess.py         # Limpieza y transformación de datos\n│   ├── graphs.py             # Funciones para generar gráficos\n│   └── utils.py              # Funciones de utilidad (colores, formatos, etc.)\n│\n├── assets/                   # Recursos estáticos (imágenes, CSS, logos)\n│   ├── logo.png\n│   └── style.css\n│      \n├── .env\n├── license.md\n├── poetry.lock\n├── pyproject.toml            # Dependencias del proyecto\n└── README.md                 # Descripción del proyecto"
+  },
+  {
+    "objectID": "dashboard.html#tech-stack",
+    "href": "dashboard.html#tech-stack",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Lenguaje : Python 3.12\nBases de datos :Microsoft SQL Server,MongoDB, MySQL (mysql-connector-python)\nAnálisis de Datos y Reportes : Pandas\nDespliegue : Streamlit"
+  },
+  {
+    "objectID": "dashboard.html#licencia",
+    "href": "dashboard.html#licencia",
+    "title": "Dashboard de Ventas",
+    "section": "",
+    "text": "Este proyecto se rige bajo la licencia de MIT."
   },
   {
     "objectID": "comprension_datos.html",
