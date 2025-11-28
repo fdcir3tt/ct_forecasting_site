@@ -1,5 +1,7 @@
 project:
   type: website
+  resources: 
+    - plots/**
   output-dir: docs
   render: # Renderizar todos los archivos .qmd
     - home.qmd
@@ -20,10 +22,6 @@ website:
         text: Home
       - href: dashboard.qmd
         text: Dashboard 
-      - href: comprension_negocio.qmd
-        text: Comprensión del negocio
-      - href: comprension_datos.qmd
-        text: Comprensión de los datos
       - href: documentacion.qmd
         text: Documentación
       
