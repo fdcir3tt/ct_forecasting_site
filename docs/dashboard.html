@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -286,7 +286,9 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -332,7 +334,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">28 de noviembre de 2025</p>
+      <p class="date">5 de enero de 2026</p>
     </div>
   </div>
   
@@ -354,35 +356,305 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="preparación-de-datos" class="level1">
 <h1>Preparación de datos</h1>
-<section id="validación-de-datos" class="level2">
-<h2 class="anchored" data-anchor-id="validación-de-datos">Validación de datos</h2>
+<section id="carga" class="level2">
+<h2 class="anchored" data-anchor-id="carga">Carga</h2>
+<p>Las fuentes de datos principales de cual se extraen los datos crudos vienen siendo :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 45%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Fuente</strong></th>
+<th><strong>Descripción</strong></th>
+<th><strong>Información extraída</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DWH</td>
+<td>(SQL Microsoft Server) Base de datos en cual se almacena información básica de productos y de todas las facturas realizadas.</td>
+<td>Información relacionada con facturas de venta y con costo de productos.</td>
+</tr>
+<tr class="even">
+<td>ct_online2</td>
+<td>(SQLite) Base de datos en cual se almacena información básica de productos</td>
+<td>Categoría al cual pertenece cada producto.</td>
+</tr>
+<tr class="odd">
+<td>CT_API_Publica</td>
+<td>(mongodb) Base de datos variada en cual se almacena información de facturas,paquetería, existencia de productos etc.</td>
+<td>Información actualizada de almacenamiento y existencia de productos.</td>
+</tr>
+<tr class="even">
+<td>CT_Historico</td>
+<td>(mongodb) Base de datos en cual se almacena histórica de almacenamiento y existencia de productos</td>
+<td>Información histórica de almacenamiento y existencia de productos.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="procesamiento" class="level2">
+<h2 class="anchored" data-anchor-id="procesamiento">Procesamiento</h2>
+<p>Primero, se revisa si la tabla local de facturas esta actualizada al día. En caso que no lo esté, se extraen solo las filas que hacen falta y se agregan a la tabla. Una vez que se haya actualizado la información de cada tabla, se pasan por filtros. En caso de los datos de facturas, se tienen que filtrar para tener solo facturas de venta y de productos físicos. Es decir, se omiten suscripciones u otros servicios. Del folio de la factura se extrae la homoclave de la sucursal en cual se realiza la venta para lograr juntar la información de facturas con la información de almacenamiento por sucursal.</p>
+</section>
+<section id="diccionario-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="diccionario-de-datos">Diccionario de datos</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 39%">
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Nombre</strong></th>
+<th><strong>Descripción</strong></th>
+<th><strong>Variable</strong></th>
+<th><strong>Formato de variable</strong></th>
+<th><strong>Fuente</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>código de producto</strong></td>
+<td>Código identificador de producto</td>
+<td><code>productId</code></td>
+<td>Texto / String</td>
+<td>DWH</td>
+</tr>
+<tr class="even">
+<td><strong>folio de venta</strong></td>
+<td>Código identificador de folio de factura de venta</td>
+<td><code>folio</code></td>
+<td>Texto / String</td>
+<td>DWH</td>
+</tr>
+<tr class="odd">
+<td><strong>código de cliente</strong></td>
+<td>Código identificador de cliente</td>
+<td><code>clientId</code></td>
+<td>Texto / String</td>
+<td>DWH</td>
+</tr>
+<tr class="even">
+<td><strong>categoría de producto</strong></td>
+<td>Categoría a la que pertenece el producto</td>
+<td><code>category</code></td>
+<td>Texto / String</td>
+<td>ct_online2</td>
+</tr>
+<tr class="odd">
+<td><strong>sucursal</strong></td>
+<td>Sucursal en la que se vendió el producto</td>
+<td><code>branch</code></td>
+<td>Texto / String</td>
+<td>DWH</td>
+</tr>
+<tr class="even">
+<td><strong>estado</strong></td>
+<td>Estado en el que se vendió el producto</td>
+<td><code>state</code></td>
+<td>Texto / String</td>
+<td>DWH</td>
+</tr>
+<tr class="odd">
+<td><strong>precio de producto</strong></td>
+<td>Precio por unidad de producto (pesos mexicanos)</td>
+<td><code>price</code></td>
+<td>Texto / String</td>
+<td>DWH</td>
+</tr>
+<tr class="even">
+<td><strong>cantidad (producto)</strong></td>
+<td>Cantidad de unidades vendidas por factura del producto</td>
+<td><code>quantity</code></td>
+<td>Numérico / Entero</td>
+<td>DWH</td>
+</tr>
+<tr class="odd">
+<td><strong>existencia (producto)</strong></td>
+<td>Cantidad de unidades en almacenamiento de producto por sucursal</td>
+<td><code>existence</code></td>
+<td>Array</td>
+<td>CT_API_Publica/CT_Historico</td>
+</tr>
+<tr class="even">
+<td><strong>fecha de registro</strong></td>
+<td>Fecha de registro de información de almacenamiento</td>
+<td><code>register_date</code></td>
+<td>Fecha datetime64[ns] (YYYY-MM-DD)</td>
+<td>CT_API_Publica/CT_Historico</td>
+</tr>
+<tr class="odd">
+<td><strong>inventario (producto)</strong></td>
+<td>Cantidad total de unidades en almacenamiento de producto</td>
+<td><code>total_stock</code></td>
+<td>Numérico / Entero</td>
+<td>CT_API_Publica/CT_Historico</td>
+</tr>
+<tr class="even">
+<td><strong>ventas diarias (producto)</strong></td>
+<td>Cantidad de unidades vendidas por día del producto</td>
+<td><code>sales_day</code></td>
+<td>Numérico / Entero</td>
+<td>DWH</td>
+</tr>
+<tr class="odd">
+<td><strong>ingreso total (producto)</strong></td>
+<td>Ingreso neto obtenido por las ventas del producto</td>
+<td><code>income</code></td>
+<td>Numérico / Decimal</td>
+<td>DWH</td>
+</tr>
+<tr class="even">
+<td><strong>costo (producto)</strong></td>
+<td>Costo total de producción o adquisición del producto</td>
+<td><code>cost</code></td>
+<td>Numérico / Decimal</td>
+<td>DWH/CT_Historico</td>
+</tr>
+<tr class="odd">
+<td><strong>fecha</strong></td>
+<td>Fecha de la venta realizada</td>
+<td><code>date</code></td>
+<td>Fecha datetime64[ns] (YYYY-MM-DD)</td>
+<td>DWH</td>
+</tr>
+<tr class="even">
+<td><strong>mes</strong></td>
+<td>Mes de la venta realizada</td>
+<td><code>month</code></td>
+<td>Texto / String</td>
+<td>DWH</td>
+</tr>
+<tr class="odd">
+<td><strong>año</strong></td>
+<td>Año de la venta realizada</td>
+<td><code>year</code></td>
+<td>Texto / String</td>
+<td>DWH</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ingesta-de-datos-históricos" class="level2">
+<h2 class="anchored" data-anchor-id="ingesta-de-datos-históricos">Ingesta de datos históricos</h2>
+<p>Se identificó una limitación importante: no existía un registro histórico de las existencias de productos. Solo se registra la cantidad disponible en un momento determinado, lo que impide trazar la evolución de inventarios a lo largo del tiempo. Esta información es clave tanto para el dashboard como para el proyecto en general de surtimiento. Por ello, se creó la base de datos CT_Historico que almacene este historial, permitiendo un análisis más completo y estratégico. Para optimizar espacio de almacenamiento, se quieren guardar y/o actualizar solo cambios de valores, y no documentos completos de manera diaria. El script de ingesta/ctualización de datos históricos ya esta implementada y se esta programada para ser ejecutada diariamente a las 6:00 a.m (UTC-7,tiempo de Hermosillo). Este es el esquema de la colección de tiempo que sigue la tabla de existencias históricas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 36%">
+<col style="width: 7%">
+<col style="width: 12%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Nombre</strong></th>
+<th><strong>Nombre en tabla</strong></th>
+<th><strong>Descripción</strong></th>
+<th><strong>Requerido</strong></th>
+<th><strong>Formato de variable</strong></th>
+<th><strong>Fuente</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>_id</code></td>
+<td>_id</td>
+<td>Identificador único del documento</td>
+<td>Sí</td>
+<td>ObjectId</td>
+<td>CT_API_Publica / tbl_existenciasHistorial</td>
+</tr>
+<tr class="even">
+<td><code>productoReferencia</code></td>
+<td>productoReferencia</td>
+<td>Metadatos para identificar producto y fuente de datos</td>
+<td>Sí</td>
+<td>Object</td>
+<td>CT_API_Publica / tbl_existenciasHistorial</td>
+</tr>
+<tr class="odd">
+<td><code>existenceId</code></td>
+<td>productoReferencia.existenciaId</td>
+<td>Identificador único del documento del cual se extrajo la información</td>
+<td>Sí</td>
+<td>ObjectId</td>
+<td>CT_API_Publica / tbl_existencias</td>
+</tr>
+<tr class="even">
+<td><code>productId</code></td>
+<td>productoReferencia.codigo</td>
+<td>Código identificador de producto</td>
+<td>Sí</td>
+<td>Texto / String</td>
+<td>CT_API_Publica / tbl_existencias</td>
+</tr>
+<tr class="odd">
+<td><code>active</code></td>
+<td>activo</td>
+<td>Describe si el producto esta actualmente activo</td>
+<td>Sí</td>
+<td>Bool</td>
+<td>CT_API_Publica / tbl_existencias</td>
+</tr>
+<tr class="even">
+<td><code>cost</code></td>
+<td>costo</td>
+<td>Cuántas unidades existen por almacen</td>
+<td>Sí</td>
+<td>Array</td>
+<td>DWH / CAT_ARTICULOS</td>
+</tr>
+<tr class="odd">
+<td><code>units_stored</code></td>
+<td>almacenes</td>
+<td>Cuántas unidades existen por almacen</td>
+<td>Sí</td>
+<td>Object</td>
+<td>CT_API_Publica / tbl_existencias</td>
+</tr>
+<tr class="even">
+<td><code>date_stored</code></td>
+<td>fechaRegistro</td>
+<td>Fecha en la que se capturó y guardó la información en colección</td>
+<td>Sí</td>
+<td>datetime</td>
+<td>CT_API_Publica / tbl_existenciasHistorial</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="validación-de-datos" class="level1">
+<h1>Validación de datos</h1>
 <p>Para obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos a la mano.</p>
-<section id="validaciones-básicas" class="level3">
-<h3 class="anchored" data-anchor-id="validaciones-básicas">Validaciones básicas</h3>
 <p><strong>Registros no nulos :</strong></p>
 <p>Para nuestro caso, los registros nulos no nos sirven para nada por el momento. Es por ello que los filtraremos del conjunto final de datos.</p>
 <p><strong>Formatos consistentes de columnas :</strong></p>
-<p>Se va definir en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.</p>
-</section>
-<section id="rangos-de-valor-y-duplicidad" class="level3">
-<h3 class="anchored" data-anchor-id="rangos-de-valor-y-duplicidad">Rangos de valor y Duplicidad</h3>
+<p>Se definen en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.</p>
 <p><strong>Suma de ventas por producto total deben ser igual a la suma de categorias total :</strong></p>
 <p>Esta validación consiste en verificar si se hace la agrupación/separación entre productos y categorías correctamente. Para ello, se compara la suma de ventas a nivel producto con la suma de ventas a nivel categoría.</p>
 <p><strong>Precios,costos, cantidades positivas :</strong></p>
-<p>Se revisará que columnas como <code>price</code> ,<code>cost</code>, <code>sales_{frequency}</code> caigan dentro de su rango lógico.</p>
-<p><strong>Precio debe ser mayor a costo :</strong></p>
-<p>Para que nuestro conjunto de datos refleje información que tenga sentido, una debe ser que el precio de producto sea mayor a su costo. Esto es por el contexto del fenómeno.</p>
-<p><strong>Fechas dentro de 2020 y actualidad</strong></p>
+<p>Se revisan que columnas como <code>price</code> ,<code>cost</code>, <code>sales_{frequency}</code> caigan dentro de su rango lógico de valores.</p>
+<p><strong>Precio de unidad debe ser mayor a su costo :</strong></p>
+<p>Para que nuestro conjunto de datos refleje información que tenga sentido, un requisito que se debe cumplir es que el precio de producto sea mayor a su costo.</p>
+<p><strong>Rango de fechas dentro de 2020 y actualidad</strong></p>
 <p>A nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo.</p>
 <p><strong>Velocidad de venta diaria debe ser menor o igual a la venta diaria</strong></p>
 <p>No son validas las velocidades de venta diaria que sean mayores a la venta diaria, ya que es un cociente de esta cantidad.</p>
 <p><strong>Cantidad de folios debe ser igual a la cantidad de registros :</strong></p>
-<p>Esto es para probar la unicidad de la columna de <code>folio</code> con los registros.</p>
+<p>Esto es para probar la unicidad de las columnas de <code>productId</code>,<code>clientId</code>,<code>folio</code>, con los registros de facturas.</p>
 <!---------------------------------------------------------------------------------------------------------------------->
 <!-- VISUALIZACIONES -->
 <!---------------------------------------------------------------------------------------------------------------------->
-</section>
-</section>
 </section>
 <section id="visualizaciones" class="level1">
 <h1>Visualizaciones</h1>
@@ -456,6 +728,15 @@ ul.task-list li input[type="checkbox"] {
 <p align="center">
 <img src="plots/categorias_abc_chart.png?updated=1" alt="prioridad_categorias" width="500">
 </p>
+</section>
+<section id="consistencia-de-información" class="level2">
+<h2 class="anchored" data-anchor-id="consistencia-de-información">Consistencia de información</h2>
+<p>Es importante a la vez que todas las visualizaciones esten plasmando la misma información, por lo que se validan los siguientes criterios entre todas las gráficas:</p>
+<ul>
+<li><p><strong>Cantidad de ventas</strong>: Todas las gráficas deben coincidir en la cantidad de ventas totales del periodo.</p></li>
+<li><p><strong>Mismo elemento</strong>: Se debe despliegar la información del mismo elemento en todas las visualizaciones.</p></li>
+<li><p><strong>Mismo producto con más ventas</strong>: Todas las gráficas deben coincidir en el mismo producto con mayor cantidad de ventas del periodo.</p></li>
+</ul>
 <!---------------------------------------------------------------------------------------------------------------------->
 <!-- DOCUMENTACIÓN -->
 <!---------------------------------------------------------------------------------------------------------------------->
@@ -491,14 +772,18 @@ ul.task-list li input[type="checkbox"] {
 ├── pyproject.toml            # Dependencias del proyecto
 └── README.md                 # Descripción del proyecto
 </code></pre>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+</section>
 </section>
 <section id="tech-stack" class="level2">
 <h2 class="anchored" data-anchor-id="tech-stack">Tech Stack</h2>
 <ul>
 <li><strong>Lenguaje</strong> : Python 3.12</li>
 <li><strong>Bases de datos</strong> :Microsoft SQL Server,MongoDB, MySQL (mysql-connector-python)</li>
-<li><strong>Análisis de Datos y Reportes</strong> : Pandas</li>
-<li><strong>Despliegue</strong> : Streamlit</li>
+<li><strong>Análisis de Datos y Reportes</strong> : Pandas 2.3.3</li>
+<li><strong>Pruebas unitarias</strong>: pytest 9.0.2</li>
+<li><strong>Despliegue</strong> : Streamlit 1.52.2</li>
 </ul>
 </section>
 <section id="licencia" class="level2">

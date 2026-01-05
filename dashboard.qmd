@@ -3,7 +3,9 @@ title: "Dashboard de Ventas"
 format: 
     html:
          page-layout: article
-toc: false
+toc-title: "Tabla de Contenidos"
+toc: true
+toc-depth: 3
 author: 
   - name: "Federico Cirett Torres"
     email: "fd.cirett@gmail.com"     
@@ -32,11 +34,70 @@ El objetivo de este proyecto es visualizar la distribución de productos en las 
 
 # Preparación de datos
 
-## Validación de datos
+## Carga
+Las fuentes de datos principales de cual se extraen los datos crudos vienen siendo : 
+
+
+| **Fuente**                            | **Descripción**                                                    |**Información extraída**                  |
+| ------------------------------------- | ------------------------------------------------------------------ |----------------------------------------- |
+|      DWH                              |  (SQL Microsoft Server)   Base de datos en cual se almacena información básica de productos y de todas las facturas realizadas.  |  Información relacionada con facturas de venta y con costo de productos.|
+|      ct_online2                       |  (SQLite)  Base de datos en cual se almacena información básica de productos     |  Categoría al cual pertenece cada producto.|
+|      CT_API_Publica                   |  (mongodb) Base de datos variada en cual se almacena información de facturas,paquetería, existencia de productos etc. | Información actualizada de almacenamiento y existencia de productos. |
+|      CT_Historico                     |  (mongodb) Base de datos en cual se almacena histórica de almacenamiento y existencia de productos |  Información histórica de almacenamiento y existencia de productos. |
+
+
+
+## Procesamiento 
+
+Primero, se revisa si la tabla local de facturas esta actualizada al día. En caso que no lo esté, se extraen solo las filas que hacen falta y se agregan a la tabla. Una vez que se haya actualizado
+la información de cada tabla, se pasan por filtros. En caso de los datos de facturas, se tienen que filtrar para tener solo facturas de venta y de productos físicos. Es decir, se omiten suscripciones u otros servicios. Del folio de la factura se extrae la homoclave de la sucursal en cual se realiza la venta para lograr juntar la información de facturas con la información de almacenamiento por sucursal.  
+
+
+
+## Diccionario de datos
+
+| **Nombre**                            | **Descripción**                                                    | **Variable**         | **Formato de variable** | **Fuente**
+| ------------------------------------- | ------------------------------------------------------------------ | -------------------- | ----------------------- | ----------------------- |
+| **código de producto**                | Código identificador de producto                                   | `productId`          | Texto / String          | DWH                     | 
+| **folio de venta**                    | Código identificador de folio de factura de venta                  | `folio`              | Texto / String          | DWH                     |
+| **código de cliente**                 | Código identificador de cliente                                    | `clientId`           | Texto / String          | DWH                     |
+| **categoría de producto**             | Categoría a la que pertenece el producto                           | `category`           | Texto / String          | ct_online2              |
+| **sucursal**                          | Sucursal en la que se vendió el producto                           | `branch`             | Texto / String          | DWH                     |
+| **estado**                            | Estado en el que se vendió el producto                             | `state`              | Texto / String          | DWH                     |
+| **precio de producto**                | Precio por unidad de producto (pesos mexicanos)                    | `price`              | Texto / String          | DWH                     |
+| **cantidad (producto)**               | Cantidad de unidades vendidas por factura del producto             | `quantity`           | Numérico / Entero       | DWH                     |
+| **existencia (producto)**             | Cantidad de unidades en almacenamiento de producto por sucursal    | `existence`          | Array                   | CT_API_Publica/CT_Historico |
+| **fecha de registro**                 | Fecha de registro de información de almacenamiento                 | `register_date`      | Fecha datetime64[ns] (YYYY-MM-DD) | CT_API_Publica/CT_Historico |
+| **inventario (producto)**             | Cantidad total de unidades en almacenamiento de producto           | `total_stock`        | Numérico / Entero       | CT_API_Publica/CT_Historico |
+| **ventas diarias (producto)**         | Cantidad de unidades vendidas por día del producto                 | `sales_day`          | Numérico / Entero       | DWH                     |
+| **ingreso total (producto)**          | Ingreso neto obtenido por las ventas del producto                  | `income`             | Numérico / Decimal      | DWH                     |
+| **costo (producto)**                  | Costo total de producción o adquisición del producto               | `cost`               | Numérico / Decimal      |  DWH/CT_Historico       |
+| **fecha**                             | Fecha de la venta realizada                                        | `date`               | Fecha datetime64[ns] (YYYY-MM-DD) | DWH           |
+| **mes**                               | Mes de la venta realizada                                          | `month`              | Texto / String          | DWH                     |
+| **año**                               | Año de la venta realizada                                          | `year`               | Texto / String          | DWH                     |
+
+
+## Ingesta de datos históricos
+
+Se identificó una limitación importante: no existía un registro histórico de las existencias de productos. Solo se registra la cantidad disponible en un momento determinado, lo que impide trazar la evolución de inventarios a lo largo del tiempo. Esta información es clave tanto para el dashboard como para el proyecto en general de surtimiento. Por ello, se creó la base de datos CT_Historico que almacene este historial, permitiendo un análisis más completo y estratégico. Para optimizar espacio de almacenamiento, se quieren guardar y/o actualizar solo cambios de valores, y no documentos completos de manera diaria. El script de ingesta/ctualización de datos históricos ya esta implementada y se esta programada para ser ejecutada diariamente a las 6:00 a.m (UTC-7,tiempo de Hermosillo). Este es el esquema de la colección de tiempo que sigue la tabla de existencias históricas:
+
+| **Nombre**             | **Nombre en tabla**            | **Descripción**                                                    | **Requerido** | **Formato de variable** | **Fuente**                  |
+| ---------------------- | ------------------------------ | ------------------------------------------------------------------ | ------------- | ----------------------- | --------------------------- |
+| `_id`                  | _id                            | Identificador único del documento                                  | Sí            | ObjectId                | CT_API_Publica / tbl_existenciasHistorial |
+| `productoReferencia`   | productoReferencia             | Metadatos para identificar producto y fuente de datos              | Sí            | Object                  | CT_API_Publica / tbl_existenciasHistorial |
+| `existenceId`          | productoReferencia.existenciaId| Identificador único del documento del cual se extrajo la información | Sí          |  ObjectId               | CT_API_Publica / tbl_existencias |
+| `productId`            |productoReferencia.codigo       | Código identificador de producto                                   | Sí            | Texto / String          | CT_API_Publica / tbl_existencias |
+| `active`               |activo                          |  Describe si el producto esta actualmente activo                   | Sí            | Bool                    | CT_API_Publica / tbl_existencias |
+| `cost`                 |costo                           |  Cuántas unidades existen por almacen                              | Sí            | Array                   | DWH / CAT_ARTICULOS |
+| `units_stored`         |almacenes                       |  Cuántas unidades existen por almacen                              | Sí            | Object                  | CT_API_Publica / tbl_existencias |
+| `date_stored`          |fechaRegistro                   |  Fecha en la que se capturó y guardó la información en colección   | Sí            | datetime                | CT_API_Publica / tbl_existenciasHistorial |
+
+
+
+# Validación de datos
 
 Para obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos a la mano. 
 
-### Validaciones básicas
 
 **Registros no nulos :**
 
@@ -44,12 +105,7 @@ Para nuestro caso, los registros nulos no nos sirven para nada por el momento. E
 
 **Formatos consistentes de columnas :**
 
-Se va definir en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.
-
-
-
-
-### Rangos de valor y Duplicidad
+Se definen en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.
 
 **Suma de ventas por producto total deben ser igual a la suma de categorias total :**
 
@@ -57,14 +113,14 @@ Esta validación consiste en verificar si se hace la agrupación/separación ent
 
 **Precios,costos, cantidades positivas :**
 
-Se revisará que columnas como `price` ,`cost`, `sales_{frequency}` caigan dentro de su rango lógico. 
+Se revisan que columnas como `price` ,`cost`, `sales_{frequency}` caigan dentro de su rango lógico de valores. 
 
-**Precio debe ser mayor a costo :**
+**Precio de unidad debe ser mayor a su costo :**
 
-Para que nuestro conjunto de datos refleje información que tenga sentido, una debe ser que el precio de producto sea mayor a su costo. Esto es por el contexto del fenómeno.  
+Para que nuestro conjunto de datos refleje información que tenga sentido, un requisito que se debe cumplir es que el precio de producto sea mayor a su costo.
 
 
-**Fechas dentro de 2020 y actualidad**
+**Rango de fechas dentro de 2020 y actualidad**
 
 A nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo. 
 
@@ -76,7 +132,9 @@ No son validas las velocidades de venta diaria que sean mayores a la venta diari
 
 **Cantidad de folios debe ser igual a la cantidad de registros :** 
 
-Esto es para probar la unicidad de la columna de `folio` con los registros. 
+Esto es para probar la unicidad de las columnas de `productId`,`clientId`,`folio`, con los registros de facturas. 
+
+
 
 
 <!---------------------------------------------------------------------------------------------------------------------->
@@ -179,6 +237,16 @@ Esto es para probar la unicidad de la columna de `folio` con los registros.
   <img src="plots/categorias_abc_chart.png?updated=1" alt="prioridad_categorias" width="500">
 </p>
 
+## Consistencia de información
+
+Es importante a la vez que todas las visualizaciones esten plasmando la misma información, por lo que se validan los siguientes criterios entre todas las gráficas:
+
+- **Cantidad de ventas**: Todas las gráficas deben coincidir en la cantidad de ventas totales del periodo.
+
+- **Mismo elemento**:  Se debe despliegar la información del mismo elemento en todas las visualizaciones.
+
+- **Mismo producto con más ventas**: Todas las gráficas deben coincidir en el mismo producto con mayor cantidad de ventas del periodo.
+
 
 
 <!---------------------------------------------------------------------------------------------------------------------->
@@ -220,12 +288,16 @@ ct_dashboard/
 
 ```
 
+
+
+### 
 ## Tech Stack
 
 - **Lenguaje** : Python 3.12
 - **Bases de datos** :Microsoft SQL Server,MongoDB, MySQL (mysql-connector-python)
-- **Análisis de Datos y Reportes** : Pandas
-- **Despliegue** : Streamlit
+- **Análisis de Datos y Reportes** : Pandas 2.3.3
+- **Pruebas unitarias**: pytest 9.0.2
+- **Despliegue** : Streamlit 1.52.2
 
 
 
