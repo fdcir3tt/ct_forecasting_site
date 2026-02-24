@@ -50,23 +50,23 @@ la información de cada tabla, se pasan por filtros. En caso de los datos de fac
 
 | **Nombre**                            | **Descripción**                                                    | **Variable**         | **Formato de variable** | **Fuente**
 | ------------------------------------- | ------------------------------------------------------------------ | -------------------- | ----------------------- | ----------------------- |
-| **código de producto**                | Código identificador de producto                                   | `productId`          | Texto / String          | Data WareHouse                     | 
-| **folio de venta**                    | Código identificador de folio de factura de venta                  | `folio`              | Texto / String          | Data WareHouse                     |
-| **código de cliente**                 | Código identificador de cliente                                    | `clientId`           | Texto / String          | Data WareHouse                     |
-| **categoría de producto**             | Categoría a la que pertenece el producto                           | `category`           | Texto / String          | CT Online              |
-| **sucursal**                          | Sucursal en la que se vendió el producto                           | `branch`             | Texto / String          | Data WareHouse                     |
-| **estado**                            | Estado en el que se vendió el producto                             | `state`              | Texto / String          | Data WareHouse                     |
-| **precio de producto**                | Precio por unidad de producto (pesos mexicanos)                    | `price`              | Texto / String          | Data WareHouse                     |
-| **cantidad (producto)**               | Cantidad de unidades vendidas por factura del producto             | `quantity`           | Numérico / Entero       | Data WareHouse                     |
-| **existencia (producto)**             | Cantidad de unidades en almacenamiento de producto por sucursal    | `existence`          | Array                   | CT API/CT Historico |
+| **código de producto**                | Código identificador de producto                                   | `productId`          | Texto / String          | Data WareHouse          | 
+| **folio de venta**                    | Código identificador de folio de factura de venta                  | `folio`              | Texto / String          | Data WareHouse          |
+| **código de cliente**                 | Código identificador de cliente                                    | `clientId`           | Texto / String          | Data WareHouse          |
+| **categoría de producto**             | Categoría a la que pertenece el producto                           | `category`           | Texto / String          | CT Online               |
+| **sucursal**                          | Sucursal en la que se vendió el producto                           | `branch`             | Texto / String          | Data WareHouse          |
+| **estado**                            | Estado en el que se vendió el producto                             | `state`              | Texto / String          | Data WareHouse          |
+| **precio de producto**                | Precio por unidad de producto (pesos mexicanos)                    | `price`              | Texto / String          | Data WareHouse          |
+| **cantidad (producto)**               | Cantidad de unidades vendidas por factura del producto             | `quantity`           | Numérico / Entero       | Data WareHouse          |
+| **existencia (producto)**             | Cantidad de unidades en almacenamiento de producto por sucursal    | `existence`          | Array                   | CT API/CT Historico     |
 | **fecha de registro**                 | Fecha de registro de información de almacenamiento                 | `register_date`      | Fecha datetime64[ns] (YYYY-MM-DD) | CT API/CT Historico |
-| **inventario (producto)**             | Cantidad total de unidades en almacenamiento de producto           | `total_stock`        | Numérico / Entero       | CT API/CT Historico |
-| **ventas diarias (producto)**         | Cantidad de unidades vendidas por día del producto                 | `sales_day`          | Numérico / Entero       | Data WareHouse                     |
-| **ingreso total (producto)**          | Ingreso neto obtenido por las ventas del producto                  | `income`             | Numérico / Decimal      | Data WareHouse                     |
-| **costo (producto)**                  | Costo total de producción o adquisición del producto               | `cost`               | Numérico / Decimal      |  Data WareHouse/CT Historico       |
-| **fecha**                             | Fecha de la venta realizada                                        | `date`               | Fecha datetime64[ns] (YYYY-MM-DD) | Data WareHouse           |
-| **mes**                               | Mes de la venta realizada                                          | `month`              | Texto / String          | Data WareHouse                     |
-| **año**                               | Año de la venta realizada                                          | `year`               | Texto / String          | Data WareHouse                     |
+| **inventario (producto)**             | Cantidad total de unidades en almacenamiento de producto           | `total_stock`        | Numérico / Entero       | CT API/CT Historico     |
+| **ventas diarias (producto)**         | Cantidad de unidades vendidas por día del producto                 | `sales_day`          | Numérico / Entero       | Data WareHouse          |
+| **ingreso total (producto)**          | Ingreso neto obtenido por las ventas del producto                  | `income`             | Numérico / Decimal      | Data WareHouse          |
+| **costo (producto)**                  | Costo total de producción o adquisición del producto               | `cost`               | Numérico / Decimal      |  Data WareHouse/CT Historico  |
+| **fecha**                             | Fecha de la venta realizada                                        | `date`               | Fecha datetime64[ns] (YYYY-MM-DD) | Data WareHouse      |
+| **mes**                               | Mes de la venta realizada                                          | `month`              | Texto / String          | Data WareHouse                |
+| **año**                               | Año de la venta realizada                                          | `year`               | Texto / String          | Data WareHouse                |
 
 
 ## Ingesta de datos históricos
@@ -88,44 +88,22 @@ Se identificó una limitación importante: no existía un registro histórico de
 
 # Validación de datos
 
-Para obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos a la mano. 
+Para obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos que aseguren que los datos usados reflejan correctamente la realidad del negocio. 
+
+- **Registros no nulos :** Para nuestro caso, los registros nulos no nos sirven para nada por el momento. Es por ello que los filtraremos del conjunto final de datos.
+
+- **Formatos consistentes de columnas :** Se definen en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.
+
+- **Suma de ventas por producto total deben ser igual a la suma de categorias total :** Esta validación consiste en verificar si se hace la agrupación/separación entre productos y categorías correctamente. Para ello, se compara la suma de ventas a nivel producto con la suma de ventas a nivel categoría. 
+
+- **Precios,costos, cantidades positivas :** Se revisan que columnas como `price` ,`cost`, `sales_{frequency}` caigan dentro de su rango lógico de valores. 
+
+- **Precio de unidad debe ser mayor a su costo :** Para que nuestro conjunto de datos refleje información que tenga sentido, un requisito que se debe cumplir es que el precio de producto sea mayor a su costo.
 
 
-**Registros no nulos :**
+- **Rango de fechas dentro de 2020 y actualidad** A nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo. 
 
-Para nuestro caso, los registros nulos no nos sirven para nada por el momento. Es por ello que los filtraremos del conjunto final de datos.
-
-**Formatos consistentes de columnas :**
-
-Se definen en base el diccionario de datos los formatos que deben tener cada columna, cuales se utilizaran como el criterio principal de validación.
-
-**Suma de ventas por producto total deben ser igual a la suma de categorias total :**
-
-Esta validación consiste en verificar si se hace la agrupación/separación entre productos y categorías correctamente. Para ello, se compara la suma de ventas a nivel producto con la suma de ventas a nivel categoría. 
-
-**Precios,costos, cantidades positivas :**
-
-Se revisan que columnas como `price` ,`cost`, `sales_{frequency}` caigan dentro de su rango lógico de valores. 
-
-**Precio de unidad debe ser mayor a su costo :**
-
-Para que nuestro conjunto de datos refleje información que tenga sentido, un requisito que se debe cumplir es que el precio de producto sea mayor a su costo.
-
-
-**Rango de fechas dentro de 2020 y actualidad**
-
-A nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo. 
-
-
-**Velocidad de venta diaria debe ser menor o igual a la venta diaria** 
-
-No son validas las velocidades de venta diaria que sean mayores a la venta diaria, ya que es un cociente de esta cantidad.
- 
-
-**Cantidad de folios debe ser igual a la cantidad de registros :** 
-
-Esto es para probar la unicidad de las columnas de `productId`,`clientId`,`folio`, con los registros de facturas. 
-
+- **Facturas únicas:**  Esto es para probar que los registros de facturas de venta sean únicos. El criterio que se utiliza es en base los siguientes elementos: código de producto, número de folio, código de cliente y fecha.
 
 
 
@@ -137,11 +115,11 @@ Esto es para probar la unicidad de las columnas de `productId`,`clientId`,`folio
 
 # Visualizaciones  
 
-## Ventas 
+## Gráfica de Ventas diarias
 
 **Objetivo:** Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado. 
 
-**Variables:** Se toman en cuenta las variables `date` y `sales_{frecuencia}` como los ejes horizontal y vertical respectivamente donde frecuencia indica si se trata de ventas diarias,semanales o mensuales. 
+
 
 **Ejemplo:**
 <p align="center">
