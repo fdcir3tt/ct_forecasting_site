@@ -119,103 +119,69 @@ Para obtener valor del dashboard, se requiere tener confianza en que los datos p
 
 **Objetivo:** Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado. 
 
-
-
-**Ejemplo:**
-<p align="center">
-  <img src="plots/almacen_ventas.png?updated=1" alt="ventas" width="500">
-</p>
-
-## Rápidez de Ventas
-
-**Objetivo:** Se tiene en mente comparar la velocidad de venta de los productos seleccionados,(máximo 4 productos), para ayudar predecir la demanda de dichos productos.
-
-**Variables:** Se toman en cuenta las variables `date` y `sales_velocity_{frequency}` como los ejes horizontal y vertical respectivamente donde `frecuency` indica si se trata de ventas diarias,semanales o mensuales.
+**Datos utilizados:** De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas. 
+**Transformaciones:** Se agrupa por la columna de código de producto y fecha  para luego sumar las cantidades vendidas. Después, se hace una interpolación linear entre los resultados. 
 
 **Ejemplo:**
 <p align="center">
-  <img src="plots/almacen_v_rapidez_ventas.png?updated=1" alt="rapidez_ventas" width="500">
+  <img src="plots/ventas.png?updated=1" alt="ventas" width="500">
 </p>
+
 
 ## Histograma de ventas
 
-**Objetivo:** Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Sólo se puede seleccionar uno a la vez. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial.
+**Objetivo:** Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Esto nos puede dar una idea de cuantas unidades suelen ser pedidas con regularidad. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial. Esta gráfica solo muestra las frecuencias de un elemento a la vez.
 
-**Variables:** Se toman en cuenta las variables `date` y `quantity` como los ejes horizontal y vertical respectivamente.
+**Datos utilizados:** De la información de facturas de venta se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas.
+**Transformaciones:** Se le aplica a la columna de cantidad de unidades vendidas el gráfico de histograma básico con 100 bins.
 
 **Ejemplo:**
 <p align="center">
-  <img src="plots/hist_ventas_prod.png?updated=1" alt="histograma" width="500">
+  <img src="plots/hist_ventas.png?updated=1" alt="histograma" width="500">
 </p>
 
 
-## Mapa de Calor de Ventas
-**Objetivo:** Visualizar áreas geográficas en donde hay más actividad de ventas. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.
+## Mapa de Calor 
+**Objetivo:** Visualizar áreas geográficas en donde hay más actividad de ventas o inventario. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.
 
-**Variables:** Se utilizan las variables `state`,`quantity` y el archivo _gadm41_MEX_shp/gadm41_MEX_1.shp_ para realizar el mapa de calor. La variable `quantity` se suma por estado y se hace una unión entre tablas sobre `state`.  
+**Datos utilizados:**De la información de facturas de venta, se utilizó el código de producto,fecha,estado geográfico de sucursal, y la cantidad de unidades vendidas. 
+**Transformaciones:** Se suman la cantidad de unidades vendidas por estado. Luego, se realiza una unión entre la información geográfica del archivo `gadm41_MEX_1.shp` y la información calculada sobre la columna del estado geográfico.
 
 **Ejemplo:**
 <p align="center">
-  <img src="plots/heatmap_ventas_mexico.png?updated=1" alt="mapa_calor" width="500" >
+  <img src="plots/mapa_de_calor.png?updated=1" alt="mapa_calor" width="500" >
 </p>
 
 ## KPIs
 
-**Objetivo:** Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las ventas totales,costo total, la ganancia total, y el cociente de inventario del producto seleccionado,(sólo uno a la vez).
+**Objetivo:** Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las unidades vendidas,costo total, la ganancia total del elemento seleccionado. 
+
+**Datos utilizados:** De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal,precio de venta, costo por unidad y la cantidad de unidades vendidas.
+
+**Transformaciones:** Se calcula el ingreso obtenido por venta para despues cálcular el total de unidades vendidas, la ganancia y el costo total. Estos cálculos se realizan a nivel sucursal y nivel global para tener comparación . Para calcular el ritmo de crecimiento de cada KPI, se calcula el valor de este mismo 30 días previo y se utiliza la expresión simple 
+$$
+\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} 
+$$
 
 
-**Variables:** Estos son los KPIs en cuestión y el cómo se obtienen: 
-
-- `total_sales` : Se suman todos los valores de `quantity` 
-
-- `total_profit` : Se suman todos los valores de `profit` 
-
-- `total_cost` : Se multiplica `cost` por `total_sales` 
-
-- `inventory_t_ratio` : Se divide `total_cost` entre el valor promedio de inventario del producto seleccionado. 
-
-
-
-## Ventas por producto
-
-**Objetivo:** Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més.
-
-**Variables:** Se utilizaron las variables `date`,`quantity`,`cost` para crear las características: 
-
-- `cost` : Costo del producto 
-
-- `total_sales` : Se suman todos los valores de `quantity` por producto agrupado
-
-- `annual_value` : Multiplicación de los valores de `total_sales` y `cost`
-
-- `cummulative_val`: Se ordena el dataframe de mayor a menor valor de `annual_value` y se suma cumulativamente `annual_value` entre el total de este mismo.
-
-- `priority`: Se le aplica un método de clasificación a `cummulative_val`
-
-**Ejemplo:**
 <p align="center">
-  <img src="plots/productos_abc_chart.png?updated=1" alt="prioridad_productos" width="500">
+  <img src="plots/kpis.png?updated=1" alt="mapa_calor" width="500" >
 </p>
 
 
-## Ventas por categoría
+## Comparación de prioridades
 
-**Objetivo:** Mismo objetivo que el de ventas por producto, mismo método. Lo único que cambía es como se agrupan los datos para generar la gráfica en base las categorías. 
+**Objetivo:** Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més. El criterio de valor es en base el costo del producto, ya que por lo general se mantiene fijo. 
+
+**Datos utilizados:**De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal, y la cantidad de unidades vendidas.
+
+**Transformaciones:** Primero se agrupa la información por elemento y sucursal para calcular las unidades vendidas. Después, calcula el valor aportado por cada producto multiplicando el costo por las ventas totales. Luego, se ordena la información en base el valor y se hace una suma acumulativa total para poder acertar cuanto aportó cada producto al valor adquirido total del periodo especificado. Si el producto aportó al 80% del valor total, se considera de alta prioridad, 15% media y  5% baja. 
 
 **Ejemplo:**
 <p align="center">
-  <img src="plots/categorias_abc_chart.png?updated=1" alt="prioridad_categorias" width="500">
+  <img src="plots/prioridades.png?updated=1" alt="prioridad_productos" width="500">
 </p>
 
-## Consistencia de información
-
-Es importante a la vez que todas las visualizaciones esten plasmando la misma información, por lo que se validan los siguientes criterios entre todas las gráficas:
-
-- **Cantidad de ventas**: Todas las gráficas deben coincidir en la cantidad de ventas totales del periodo.
-
-- **Mismo elemento**:  Se debe despliegar la información del mismo elemento en todas las visualizaciones.
-
-- **Mismo producto con más ventas**: Todas las gráficas deben coincidir en el mismo producto con mayor cantidad de ventas del periodo.
 
 
 
@@ -227,47 +193,7 @@ Es importante a la vez que todas las visualizaciones esten plasmando la misma in
 
 # Documentación
 
-## Estructura de proyecto
-
-```
-ct_dashboard/
-│
-├── app.py                    # Punto de entrada principal (main)
-│
-│
-├── data/                     # Datos locales (CSV, JSON, etc.)
-│   ├── ventas.csv
-│   └── clientes.csv
-│
-├── src/                      # Código fuente (módulos auxiliares)
-│   ├── __init__.py
-│   ├── data_loader.py        # Funciones para cargar datos
-│   ├── preprocess.py         # Limpieza y transformación de datos
-│   ├── graphs.py             # Funciones para generar gráficos
-│   └── utils.py              # Funciones de utilidad (colores, formatos, etc.)
-│
-├── assets/                   # Recursos estáticos (imágenes, CSS, logos)
-│   ├── logo.png
-│   └── style.css
-│      
-├── .env
-├── license.md
-├── poetry.lock
-├── pyproject.toml            # Dependencias del proyecto
-└── README.md                 # Descripción del proyecto
-
-```
-
-
-
-### 
-## Tech Stack
-
-- **Lenguaje** : Python 3.12
-- **Bases de datos** :Microsoft SQL Server,MongoDB, MySQL (mysql-connector-python)
-- **Análisis de Datos y Reportes** : Pandas 2.3.3
-- **Pruebas unitarias**: pytest 9.0.2
-- **Despliegue** : Streamlit 1.52.2
+[Repositorio de Dashboard](https://github.com/fdcir3tt/ct_dashboard)
 
 
 
