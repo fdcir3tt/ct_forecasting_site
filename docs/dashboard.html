@@ -642,9 +642,28 @@ window.Quarto = {
 <li><p><strong>Rango de fechas dentro de 2020 y actualidad</strong> A nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo.</p></li>
 <li><p><strong>Facturas únicas:</strong> Esto es para probar que los registros de facturas de venta sean únicos. El criterio que se utiliza es en base los siguientes elementos: código de producto, número de folio, código de cliente y fecha.</p></li>
 </ul>
+</section>
+<section id="filtros" class="level1">
+<h1>Filtros</h1>
+<section id="nivel-de-análisis-y-ventas-anómalas" class="level2">
+<h2 class="anchored" data-anchor-id="nivel-de-análisis-y-ventas-anómalas">Nivel de análisis y ventas anómalas</h2>
+<p>Es posible realizar los análisis y visualizaciones tanto por productos individuales como por categorías seleccionadas. Asimismo, el usuario puede decidir si incluir o no las ventas atípicas en el análisis.</p>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/nivel_anomalas.png?updated=1" alt="ventas" width="500">
+</p>
+</section>
+<section id="elementos-sucursal-y-periodo-de-análisis" class="level2">
+<h2 class="anchored" data-anchor-id="elementos-sucursal-y-periodo-de-análisis">Elementos, sucursal y periodo de análisis</h2>
+<p>En esta sección se seleccionan los productos a analizar, incluyendo los cuatro que se mostrarán en el gráfico de ventas y el producto principal. Además, se determina la sucursal y el período de análisis</p>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/suc_elem_periodo.png?updated=1" alt="ventas" width="500">
+</p>
 <!---------------------------------------------------------------------------------------------------------------------->
 <!-- VISUALIZACIONES -->
 <!---------------------------------------------------------------------------------------------------------------------->
+</section>
 </section>
 <section id="visualizaciones" class="level1">
 <h1>Visualizaciones</h1>
@@ -680,8 +699,9 @@ window.Quarto = {
 <p><strong>Objetivo:</strong> Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las unidades vendidas,costo total, la ganancia total del elemento seleccionado.</p>
 <p><strong>Datos utilizados:</strong> De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal,precio de venta, costo por unidad y la cantidad de unidades vendidas.</p>
 <p><strong>Transformaciones:</strong> Se calcula el ingreso obtenido por venta para despues cálcular el total de unidades vendidas, la ganancia y el costo total. Estos cálculos se realizan a nivel sucursal y nivel global para tener comparación . Para calcular el ritmo de crecimiento de cada KPI, se calcula el valor de este mismo 30 días previo y se utiliza la expresión simple <span class="math display">\[
-\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}}
+\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} * 100 %
 \]</span></p>
+<strong>Ejemplo:</strong>
 <p align="center">
 <img src="plots/kpis.png?updated=1" alt="mapa_calor" width="500">
 </p>

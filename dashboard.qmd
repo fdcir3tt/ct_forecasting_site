@@ -107,6 +107,29 @@ Para obtener valor del dashboard, se requiere tener confianza en que los datos p
 
 
 
+# Filtros 
+## Nivel de análisis y ventas anómalas
+
+Es posible realizar los análisis y visualizaciones tanto por productos individuales como por categorías seleccionadas. Asimismo, el usuario puede decidir si incluir o no las ventas atípicas en el análisis.
+
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/nivel_anomalas.png?updated=1" alt="ventas" width="500">
+</p>
+
+
+## Elementos, sucursal y periodo de análisis
+
+En esta sección se seleccionan los productos a analizar, incluyendo los cuatro que se mostrarán en el gráfico de ventas y el producto principal. Además, se determina la sucursal y el período de análisis
+
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/suc_elem_periodo.png?updated=1" alt="ventas" width="500">
+</p>
+
+
 <!---------------------------------------------------------------------------------------------------------------------->
 
 <!-- VISUALIZACIONES -->
@@ -160,10 +183,10 @@ Para obtener valor del dashboard, se requiere tener confianza en que los datos p
 
 **Transformaciones:** Se calcula el ingreso obtenido por venta para despues cálcular el total de unidades vendidas, la ganancia y el costo total. Estos cálculos se realizan a nivel sucursal y nivel global para tener comparación . Para calcular el ritmo de crecimiento de cada KPI, se calcula el valor de este mismo 30 días previo y se utiliza la expresión simple 
 $$
-\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} 
+\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} * 100 %
 $$
 
-
+**Ejemplo:**
 <p align="center">
   <img src="plots/kpis.png?updated=1" alt="mapa_calor" width="500" >
 </p>
