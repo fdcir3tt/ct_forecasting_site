@@ -107,10 +107,14 @@ Para obtener valor del dashboard, se requiere tener confianza en que los datos p
 
 
 
-# Filtros 
-## Nivel de análisis y ventas anómalas
 
-Es posible realizar los análisis y visualizaciones tanto por productos individuales como por categorías seleccionadas. Asimismo, el usuario puede decidir si incluir o no las ventas atípicas en el análisis.
+# Guía Rápida 
+## Filtros 
+### Nivel de análisis y ventas atípicas
+
+Es posible realizar los análisis y visualizaciones tanto por productos individuales como por categorías seleccionadas. Asimismo, el usuario puede decidir si incluir o no las ventas atípicas en el análisis. 
+
+**Nota**: Al incluir ventas atípicas en el análisis del dashboard puede alterar drásticamente las magnitudes de las gráficas y KPIs. 
 
 
 **Ejemplo:**
@@ -119,7 +123,7 @@ Es posible realizar los análisis y visualizaciones tanto por productos individu
 </p>
 
 
-## Elementos, sucursal y periodo de análisis
+### Elementos, sucursal y periodo de análisis
 
 En esta sección se seleccionan los productos a analizar, incluyendo los cuatro que se mostrarán en el gráfico de ventas y el producto principal. Además, se determina la sucursal y el período de análisis
 
@@ -136,13 +140,14 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
 
 <!---------------------------------------------------------------------------------------------------------------------->
 
-# Visualizaciones  
+## Visualizaciones  
 
-## Gráfica de Ventas diarias
+### Gráfica de Ventas 
 
 **Objetivo:** Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado. 
 
-**Datos utilizados:** De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas. 
+**Datos utilizados:** De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas.
+
 **Transformaciones:** Se agrupa por la columna de código de producto y fecha  para luego sumar las cantidades vendidas. Después, se hace una interpolación linear entre los resultados. 
 
 **Ejemplo:**
@@ -150,8 +155,23 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
   <img src="plots/ventas.png?updated=1" alt="ventas" width="500">
 </p>
 
+**Interpretabilidad** Esta gráfica permite identificar patrones y tendencias de venta tanto a nivel de sucursal como a nivel global. También facilita la comparación entre el desempeño de un producto en cada sucursal y el promedio global, ayudando a detectar comportamientos similares o divergentes.(Sensible a ventas atípicas)
 
-## Histograma de ventas
+### Gráfica de Existencia
+**Objetivo:** Esta gráfica quiere visualizar el comportamiento del inventario de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado. 
+
+**Datos utilizados:** De la información de inventario, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades almacenadas.
+
+**Transformaciones:** Se agrupa por la columna de código de producto y fecha  para luego sumar las cantidades en existencia. Después, se hace una interpolación linear entre los resultados. 
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/existencia.png?updated=1" alt="ventas" width="500">
+</p>
+
+**Interpretabilidad** Esta gráfica permite visualizar los niveles de existencia a nivel de sucursal y global. También facilita la comparación entre sucursal y promedio global, ayudando a identificar si un producto mantiene un comportamiento consistente o presenta variaciones respecto al promedio.(Sensible a ventas atípicas)
+
+### Histograma de ventas
 
 **Objetivo:** Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Esto nos puede dar una idea de cuantas unidades suelen ser pedidas con regularidad. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial. Esta gráfica solo muestra las frecuencias de un elemento a la vez.
 
@@ -163,8 +183,9 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
   <img src="plots/hist_ventas.png?updated=1" alt="histograma" width="500">
 </p>
 
+**Interpretabilidad** Con esta gráfica es posible visualizar patrones en la cantidad de ventas tanto a nivel de sucursal como a nivel global. Además, permite comparar el desempeño de un producto en una sucursal específica frente al promedio global, con el fin de identificar si su comportamiento es similar o diferente.(Sensible a ventas atípicas)
 
-## Mapa de Calor 
+### Mapa de Calor 
 **Objetivo:** Visualizar áreas geográficas en donde hay más actividad de ventas o inventario. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.
 
 **Datos utilizados:**De la información de facturas de venta, se utilizó el código de producto,fecha,estado geográfico de sucursal, y la cantidad de unidades vendidas. 
@@ -175,7 +196,9 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
   <img src="plots/mapa_de_calor.png?updated=1" alt="mapa_calor" width="500" >
 </p>
 
-## KPIs
+**Interpretabilidad** Con esta gráfica es posible visualizar los patrones de cantidad de ventas por estado. Se quiere identificar zonas con mayor actividad comercial que otras, es decir, aquellas donde se concentra un mayor volumen de ventas.(Sensible a ventas atípicas)
+
+### KPIs 
 
 **Objetivo:** Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las unidades vendidas,costo total, la ganancia total del elemento seleccionado. 
 
@@ -186,13 +209,16 @@ $$
 \text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} * 100 %
 $$
 
-**Ejemplo:**
+**Ejemplo:KPIs de Ventas**
 <p align="center">
-  <img src="plots/kpis.png?updated=1" alt="mapa_calor" width="500" >
+  <img src="plots/kpis_ventas.png?updated=1" alt="mapa_calor" width="500" >
+</p>
+**Ejemplo:KPIs de Inventario**
+<p align="center">
+  <img src="plots/kpis_inv.png?updated=1" alt="mapa_calor" width="500" >
 </p>
 
-
-## Comparación de prioridades
+### Comparación de prioridades
 
 **Objetivo:** Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més. El criterio de valor es en base el costo del producto, ya que por lo general se mantiene fijo. 
 
@@ -205,8 +231,7 @@ $$
   <img src="plots/prioridades.png?updated=1" alt="prioridad_productos" width="500">
 </p>
 
-
-
+**Interpretabilidad**: La idea principal es identificar los productos que representan el mayor porcentaje del ingreso total de la sucursal seleccionada. Al visualizar estas prioridades, se busca apoyar la toma de decisiones al momento de surtir productos de manera intuitiv.(Sensible a ventas atípicas)
 
 <!---------------------------------------------------------------------------------------------------------------------->
 

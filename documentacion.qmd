@@ -3,7 +3,7 @@ title: "Documentación"
 ---
 ::: {style="text-align: justify"}
 
-[Repositorio de Dashboard](https://github.com/fdcir3tt/ct_dashboard)
+
 [Repositorio de MLOps](https://github.com/fdcir3tt/ct_forecasting)
 
 ## Tech Stack
