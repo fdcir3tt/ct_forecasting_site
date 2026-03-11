@@ -14,7 +14,7 @@ project:
     - documentacion.qmd
 
 website:
-  favicon: ctlogo.png
+  favicon: favicon.png
   navbar:
     logo: ctlogo.png
     left:
