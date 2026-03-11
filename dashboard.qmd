@@ -1,34 +1,182 @@
 ---
 title: "Dashboard de Ventas"
 format: 
-    html:
-         page-layout: article
-toc-title: "Tabla de Contenidos"
-toc: true
-toc-depth: 3
+  html:
+    page-layout: article
+    toc-title: "Tabla de Contenidos"
+    toc: true
+    toc-depth: 3
+    toc-location: right
+reference-location: margin
+citation-location: margin
 date: last-modified
 date-format: long
 lang: es
 
 ---
 
-::: {style="text-align: justify"}
+
 # Resumén:
-
+::: {style="text-align: justify"}
 El objetivo de este proyecto es visualizar la distribución de productos en las sucursales de CT International. Actualmente, la empresa gestiona el aspecto logístico mediante archivos de Excel. Se busca optimizar esta tarea mediante una herramienta intuitiva que permita visualizar la información de manera más eficiente. El éxito del proyecto se evaluará en función de la capacidad del dashboard para proporcionar información valiosa a los usuarios de forma diaria.
+:::
+
+# Guía de uso 
+## Filtros 
+### Nivel de análisis y ventas atípicas
+
+::: {style="text-align: justify"}
+Es posible realizar los análisis y visualizaciones tanto por productos individuales como por categorías seleccionadas. Asimismo, el usuario puede decidir si incluir o no las ventas atípicas en el análisis. 
+
+**Nota**: Al incluir ventas atípicas en el análisis del dashboard puede alterar drásticamente las magnitudes de las gráficas y KPIs. 
+:::
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/nivel_anomalas.png?updated=1" alt="ventas" width="500">
+</p>
 
 
-<!---------------------------------------------------------------------------------------------------------------------->
+### Elementos, sucursal y periodo de análisis
 
-<!-- PREPARACIÓN DE DATOS -->
+::: {style="text-align: justify"}
+En esta sección se seleccionan los productos a analizar, incluyendo los cuatro que se mostrarán en el gráfico de ventas y el producto principal. Además, se determina la sucursal y el período de análisis
+:::
 
-<!---------------------------------------------------------------------------------------------------------------------->
+**Ejemplo:**
+<p align="center">
+  <img src="plots/suc_elem_periodo.png?updated=1" alt="ventas" width="500">
+</p>
+
+
+
+
+## Visualizaciones  
+
+### Gráfica de Ventas 
+
+::: {style="text-align: justify"}
+**Objetivo:** Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado. 
+
+**Datos utilizados:** De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas.
+
+**Transformaciones:** Se agrupa por la columna de código de producto y fecha  para luego sumar las cantidades vendidas. Después, se hace una interpolación linear entre los resultados. 
+:::
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/ventas.png?updated=1" alt="ventas" width="700">
+</p>
+
+::: {style="text-align: justify"}
+**Interpretabilidad** Esta gráfica permite identificar patrones y tendencias de venta tanto a nivel de sucursal como a nivel global. También facilita la comparación entre el desempeño de un producto en cada sucursal y el promedio global, ayudando a detectar comportamientos similares o divergentes.(Sensible a ventas atípicas)
+:::
+
+### Gráfica de Existencia
+
+::: {style="text-align: justify"}
+**Objetivo:** Esta gráfica quiere visualizar el comportamiento del inventario de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado. 
+
+**Datos utilizados:** De la información de inventario, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades almacenadas.
+
+**Transformaciones:** Se agrupa por la columna de código de producto y fecha  para luego sumar las cantidades en existencia. Después, se hace una interpolación linear entre los resultados. 
+:::
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/existencia.png?updated=1" alt="ventas" width="700">
+</p>
+
+::: {style="text-align: justify"}
+**Interpretabilidad** Esta gráfica permite visualizar los niveles de existencia a nivel de sucursal y global. También facilita la comparación entre sucursal y promedio global, ayudando a identificar si un producto mantiene un comportamiento consistente o presenta variaciones respecto al promedio.(Sensible a ventas atípicas)
+:::
+
+### Histograma de ventas
+
+::: {style="text-align: justify"}
+**Objetivo:** Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Esto nos puede dar una idea de cuantas unidades suelen ser pedidas con regularidad. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial. Esta gráfica solo muestra las frecuencias de un elemento a la vez.
+
+**Datos utilizados:** De la información de facturas de venta se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas.
+**Transformaciones:** Se le aplica a la columna de cantidad de unidades vendidas el gráfico de histograma básico con 100 bins.
+:::
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/hist_ventas.png?updated=1" alt="histograma" width="700">
+</p>
+
+::: {style="text-align: justify"}
+**Interpretabilidad** Con esta gráfica es posible visualizar patrones en la cantidad de ventas tanto a nivel de sucursal como a nivel global. Además, permite comparar el desempeño de un producto en una sucursal específica frente al promedio global, con el fin de identificar si su comportamiento es similar o diferente.(Sensible a ventas atípicas)
+:::
+
+### Mapa de Calor 
+
+::: {style="text-align: justify"}
+**Objetivo:** Visualizar áreas geográficas en donde hay más actividad de ventas o inventario. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.
+
+**Datos utilizados:**De la información de facturas de venta, se utilizó el código de producto,fecha,estado geográfico de sucursal, y la cantidad de unidades vendidas. 
+**Transformaciones:** Se suman la cantidad de unidades vendidas por estado. Luego, se realiza una unión entre la información geográfica del archivo `gadm41_MEX_1.shp` y la información calculada sobre la columna del estado geográfico.
+:::
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/mapa_de_calor.png?updated=1" alt="mapa_calor" width="500" >
+</p>
+
+::: {style="text-align: justify"}
+**Interpretabilidad** Con esta gráfica es posible visualizar los patrones de cantidad de ventas por estado. Se quiere identificar zonas con mayor actividad comercial que otras, es decir, aquellas donde se concentra un mayor volumen de ventas.(Sensible a ventas atípicas)
+:::
+
+### KPIs 
+
+::: {style="text-align: justify"}
+**Objetivo:** Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las unidades vendidas,costo total, la ganancia total del elemento seleccionado. 
+
+**Datos utilizados:** De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal,precio de venta, costo por unidad y la cantidad de unidades vendidas.
+
+**Transformaciones:** Se calcula el ingreso obtenido por venta para despues cálcular el total de unidades vendidas, la ganancia y el costo total. Estos cálculos se realizan a nivel sucursal y nivel global para tener comparación . Para calcular el ritmo de crecimiento de cada KPI, se calcula el valor de este mismo 30 días previo y se utiliza la expresión simple 
+:::
+$$
+\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} * 100 %
+$$
+
+**Ejemplo:KPIs de Ventas**
+<p align="center">
+  <img src="plots/kpis_ventas.png?updated=1" alt="mapa_calor" width="500" >
+</p>
+**Ejemplo:KPIs de Inventario**
+<p align="center">
+  <img src="plots/kpis_inv.png?updated=1" alt="mapa_calor" width="500" >
+</p>
+
+### Comparación de prioridades
+
+::: {style="text-align: justify"}
+**Objetivo:** Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més. El criterio de valor es en base el costo del producto, ya que por lo general se mantiene fijo. 
+
+**Datos utilizados:**De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal, y la cantidad de unidades vendidas.
+
+**Transformaciones:** Primero se agrupa la información por elemento y sucursal para calcular las unidades vendidas. Después, calcula el valor aportado por cada producto multiplicando el costo por las ventas totales. Luego, se ordena la información en base el valor y se hace una suma acumulativa total para poder acertar cuanto aportó cada producto al valor adquirido total del periodo especificado. Si el producto aportó al 80% del valor total, se considera de alta prioridad, 15% media y  5% baja. 
+:::
+
+**Ejemplo:**
+<p align="center">
+  <img src="plots/prioridades.png?updated=1" alt="prioridad_productos" width="500">
+</p>
+
+::: {style="text-align: justify"}
+**Interpretabilidad**: La idea principal es identificar los productos que representan el mayor porcentaje del ingreso total de la sucursal seleccionada. Al visualizar estas prioridades, se busca apoyar la toma de decisiones al momento de surtir productos de manera intuitiv.(Sensible a ventas atípicas)
+:::
+
+<!-- Preparación de datos -->
 
 # Preparación de datos
 
 ## Carga
-Las fuentes de datos principales de cual se extraen los datos crudos vienen siendo : 
 
+::: {style="text-align: justify"}
+Las fuentes de datos principales de cual se extraen los datos crudos vienen siendo : 
+:::
 
 | **Fuente**                            | **Descripción**                                                    |**Información extraída**                  |
 | ------------------------------------- | ------------------------------------------------------------------ |----------------------------------------- |
@@ -41,14 +189,15 @@ Las fuentes de datos principales de cual se extraen los datos crudos vienen sien
 
 ## Procesamiento 
 
+::: {style="text-align: justify"}
 Primero, se revisa si la tabla local de facturas esta actualizada al día. En caso que no lo esté, se extraen solo las filas que hacen falta y se agregan a la tabla. Una vez que se haya actualizado
 la información de cada tabla, se pasan por filtros. En caso de los datos de facturas, se tienen que filtrar para tener solo facturas de venta y de productos físicos. Es decir, se omiten suscripciones u otros servicios. Del folio de la factura se extrae la homoclave de la sucursal en cual se realiza la venta para lograr juntar la información de facturas con la información de almacenamiento por sucursal.  
-
+:::
 
 
 ## Diccionario de datos
 
-| **Nombre**                            | **Descripción**                                                    | **Variable**         | **Formato de variable** | **Fuente**
+| **Nombre**                            | **Descripción**                                                    | **Variable**         | **Formato** | **Fuente**
 | ------------------------------------- | ------------------------------------------------------------------ | -------------------- | ----------------------- | ----------------------- |
 | **código de producto**                | Código identificador de producto                                   | `productId`          | Texto / String          | Data WareHouse          | 
 | **folio de venta**                    | Código identificador de folio de factura de venta                  | `folio`              | Texto / String          | Data WareHouse          |
@@ -71,23 +220,26 @@ la información de cada tabla, se pasan por filtros. En caso de los datos de fac
 
 ## Ingesta de datos históricos
 
+::: {style="text-align: justify"}
 Se identificó una limitación importante: no existía un registro histórico de las existencias de productos. Solo se registra la cantidad disponible en un momento determinado, lo que impide trazar la evolución de inventarios a lo largo del tiempo. Esta información es clave tanto para el dashboard como para el proyecto en general de surtimiento. Por ello, se creó la base de datos CT Historico que almacene este historial, permitiendo un análisis más completo y estratégico. Para optimizar espacio de almacenamiento, se quieren guardar y/o actualizar solo cambios de valores, y no documentos completos de manera diaria. El script de ingesta/ctualización de datos históricos ya esta implementada y se esta programada para ser ejecutada diariamente a las 6:00 a.m (UTC-7,tiempo de Hermosillo). Este es el esquema de la colección de tiempo que sigue la tabla de existencias históricas:
+:::
 
-| **Nombre**             | **Nombre en tabla**            | **Descripción**                                                    | **Requerido** | **Formato de variable** | **Fuente**                  |
+| **Nombre**             | **Nombre en tabla**            | **Descripción**                                                    | **Formato** | **Fuente**                  |
 | ---------------------- | ------------------------------ | ------------------------------------------------------------------ | ------------- | ----------------------- | --------------------------- |
-| `_id`                  | _id                            | Identificador único del documento                                  | Sí            | ObjectId                | CT API / tbl_existenciasHistorial |
-| `productoReferencia`   | productoReferencia             | Metadatos para identificar producto y fuente de datos              | Sí            | Object                  | CT API / tbl_existenciasHistorial |
-| `existenceId`          | productoReferencia.existenciaId| Identificador único del documento del cual se extrajo la información | Sí          |  ObjectId               | CT API / tbl_existencias |
-| `productId`            |productoReferencia.codigo       | Código identificador de producto                                   | Sí            | Texto / String          | CT API / tbl_existencias |
-| `active`               |activo                          |  Describe si el producto esta actualmente activo                   | Sí            | Bool                    | CT API / tbl_existencias |
-| `cost`                 |costo                           |  Cuántas unidades existen por almacen                              | Sí            | Array                   | Data WareHouse / CAT_ARTICULOS |
-| `units_stored`         |almacenes                       |  Cuántas unidades existen por almacen                              | Sí            | Object                  | CT API / tbl_existencias |
-| `date_stored`          |fechaRegistro                   |  Fecha en la que se capturó y guardó la información en colección   | Sí            | datetime                | CT API / tbl_existenciasHistorial |
+| `_id`                  | _id                            | Identificador único del documento                                  | ObjectId                | CT API / tbl_existenciasHistorial |
+| `productoReferencia`   | productoReferencia             | Metadatos para identificar producto y fuente de datos              | Object                  | CT API / tbl_existenciasHistorial |
+| `existenceId`          | productoReferencia.existenciaId| Identificador único del documento del cual se extrajo la información|  ObjectId               | CT API / tbl_existencias |
+| `productId`            |productoReferencia.codigo       | Código identificador de producto                                   | Texto / String          | CT API / tbl_existencias |
+| `active`               |activo                          |  Describe si el producto esta actualmente activo                   | Bool                    | CT API / tbl_existencias |
+| `cost`                 |costo                           |  Cuántas unidades existen por almacen                              | Array                   | Data WareHouse / CAT_ARTICULOS |
+| `units_stored`         |almacenes                       |  Cuántas unidades existen por almacen                              | Object                  | CT API / tbl_existencias |
+| `date_stored`          |fechaRegistro                   |  Fecha en la que se capturó y guardó la información en colección   | datetime                | CT API / tbl_existenciasHistorial |
 
 
 
 # Validación de datos
 
+::: {style="text-align: justify"}
 Para obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos que aseguren que los datos usados reflejan correctamente la realidad del negocio. 
 
 - **Registros no nulos :** Para nuestro caso, los registros nulos no nos sirven para nada por el momento. Es por ello que los filtraremos del conjunto final de datos.
@@ -104,140 +256,12 @@ Para obtener valor del dashboard, se requiere tener confianza en que los datos p
 - **Rango de fechas dentro de 2020 y actualidad** A nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo. 
 
 - **Facturas únicas:**  Esto es para probar que los registros de facturas de venta sean únicos. El criterio que se utiliza es en base los siguientes elementos: código de producto, número de folio, código de cliente y fecha.
+:::
 
 
 
 
-# Guía Rápida 
-## Filtros 
-### Nivel de análisis y ventas atípicas
-
-Es posible realizar los análisis y visualizaciones tanto por productos individuales como por categorías seleccionadas. Asimismo, el usuario puede decidir si incluir o no las ventas atípicas en el análisis. 
-
-**Nota**: Al incluir ventas atípicas en el análisis del dashboard puede alterar drásticamente las magnitudes de las gráficas y KPIs. 
-
-
-**Ejemplo:**
-<p align="center">
-  <img src="plots/nivel_anomalas.png?updated=1" alt="ventas" width="500">
-</p>
-
-
-### Elementos, sucursal y periodo de análisis
-
-En esta sección se seleccionan los productos a analizar, incluyendo los cuatro que se mostrarán en el gráfico de ventas y el producto principal. Además, se determina la sucursal y el período de análisis
-
-
-**Ejemplo:**
-<p align="center">
-  <img src="plots/suc_elem_periodo.png?updated=1" alt="ventas" width="500">
-</p>
-
-
-<!---------------------------------------------------------------------------------------------------------------------->
-
-<!-- VISUALIZACIONES -->
-
-<!---------------------------------------------------------------------------------------------------------------------->
-
-## Visualizaciones  
-
-### Gráfica de Ventas 
-
-**Objetivo:** Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado. 
-
-**Datos utilizados:** De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas.
-
-**Transformaciones:** Se agrupa por la columna de código de producto y fecha  para luego sumar las cantidades vendidas. Después, se hace una interpolación linear entre los resultados. 
-
-**Ejemplo:**
-<p align="center">
-  <img src="plots/ventas.png?updated=1" alt="ventas" width="700">
-</p>
-
-**Interpretabilidad** Esta gráfica permite identificar patrones y tendencias de venta tanto a nivel de sucursal como a nivel global. También facilita la comparación entre el desempeño de un producto en cada sucursal y el promedio global, ayudando a detectar comportamientos similares o divergentes.(Sensible a ventas atípicas)
-
-### Gráfica de Existencia
-**Objetivo:** Esta gráfica quiere visualizar el comportamiento del inventario de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado. 
-
-**Datos utilizados:** De la información de inventario, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades almacenadas.
-
-**Transformaciones:** Se agrupa por la columna de código de producto y fecha  para luego sumar las cantidades en existencia. Después, se hace una interpolación linear entre los resultados. 
-
-**Ejemplo:**
-<p align="center">
-  <img src="plots/existencia.png?updated=1" alt="ventas" width="700">
-</p>
-
-**Interpretabilidad** Esta gráfica permite visualizar los niveles de existencia a nivel de sucursal y global. También facilita la comparación entre sucursal y promedio global, ayudando a identificar si un producto mantiene un comportamiento consistente o presenta variaciones respecto al promedio.(Sensible a ventas atípicas)
-
-### Histograma de ventas
-
-**Objetivo:** Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Esto nos puede dar una idea de cuantas unidades suelen ser pedidas con regularidad. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial. Esta gráfica solo muestra las frecuencias de un elemento a la vez.
-
-**Datos utilizados:** De la información de facturas de venta se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas.
-**Transformaciones:** Se le aplica a la columna de cantidad de unidades vendidas el gráfico de histograma básico con 100 bins.
-
-**Ejemplo:**
-<p align="center">
-  <img src="plots/hist_ventas.png?updated=1" alt="histograma" width="700">
-</p>
-
-**Interpretabilidad** Con esta gráfica es posible visualizar patrones en la cantidad de ventas tanto a nivel de sucursal como a nivel global. Además, permite comparar el desempeño de un producto en una sucursal específica frente al promedio global, con el fin de identificar si su comportamiento es similar o diferente.(Sensible a ventas atípicas)
-
-### Mapa de Calor 
-**Objetivo:** Visualizar áreas geográficas en donde hay más actividad de ventas o inventario. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.
-
-**Datos utilizados:**De la información de facturas de venta, se utilizó el código de producto,fecha,estado geográfico de sucursal, y la cantidad de unidades vendidas. 
-**Transformaciones:** Se suman la cantidad de unidades vendidas por estado. Luego, se realiza una unión entre la información geográfica del archivo `gadm41_MEX_1.shp` y la información calculada sobre la columna del estado geográfico.
-
-**Ejemplo:**
-<p align="center">
-  <img src="plots/mapa_de_calor.png?updated=1" alt="mapa_calor" width="500" >
-</p>
-
-**Interpretabilidad** Con esta gráfica es posible visualizar los patrones de cantidad de ventas por estado. Se quiere identificar zonas con mayor actividad comercial que otras, es decir, aquellas donde se concentra un mayor volumen de ventas.(Sensible a ventas atípicas)
-
-### KPIs 
-
-**Objetivo:** Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las unidades vendidas,costo total, la ganancia total del elemento seleccionado. 
-
-**Datos utilizados:** De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal,precio de venta, costo por unidad y la cantidad de unidades vendidas.
-
-**Transformaciones:** Se calcula el ingreso obtenido por venta para despues cálcular el total de unidades vendidas, la ganancia y el costo total. Estos cálculos se realizan a nivel sucursal y nivel global para tener comparación . Para calcular el ritmo de crecimiento de cada KPI, se calcula el valor de este mismo 30 días previo y se utiliza la expresión simple 
-$$
-\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} * 100 %
-$$
-
-**Ejemplo:KPIs de Ventas**
-<p align="center">
-  <img src="plots/kpis_ventas.png?updated=1" alt="mapa_calor" width="500" >
-</p>
-**Ejemplo:KPIs de Inventario**
-<p align="center">
-  <img src="plots/kpis_inv.png?updated=1" alt="mapa_calor" width="500" >
-</p>
-
-### Comparación de prioridades
-
-**Objetivo:** Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més. El criterio de valor es en base el costo del producto, ya que por lo general se mantiene fijo. 
-
-**Datos utilizados:**De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal, y la cantidad de unidades vendidas.
-
-**Transformaciones:** Primero se agrupa la información por elemento y sucursal para calcular las unidades vendidas. Después, calcula el valor aportado por cada producto multiplicando el costo por las ventas totales. Luego, se ordena la información en base el valor y se hace una suma acumulativa total para poder acertar cuanto aportó cada producto al valor adquirido total del periodo especificado. Si el producto aportó al 80% del valor total, se considera de alta prioridad, 15% media y  5% baja. 
-
-**Ejemplo:**
-<p align="center">
-  <img src="plots/prioridades.png?updated=1" alt="prioridad_productos" width="500">
-</p>
-
-**Interpretabilidad**: La idea principal es identificar los productos que representan el mayor porcentaje del ingreso total de la sucursal seleccionada. Al visualizar estas prioridades, se busca apoyar la toma de decisiones al momento de surtir productos de manera intuitiv.(Sensible a ventas atípicas)
-
-<!---------------------------------------------------------------------------------------------------------------------->
-
-<!-- DOCUMENTACIÓN -->
-
-<!---------------------------------------------------------------------------------------------------------------------->
+<!-- Documentación -->
 
 # Documentación
 
@@ -248,5 +272,5 @@ $$
 ## Licencia
 Este proyecto se rige bajo la licencia de MIT.
 
-:::
+
 

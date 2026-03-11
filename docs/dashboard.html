@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./favicon.png" rel="icon" type="image/png">
+<link href="./ctlogo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -311,8 +311,43 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Tabla de Contenidos</h2>
+   
+  <ul>
+  <li><a href="#resumén" id="toc-resumén" class="nav-link active" data-scroll-target="#resumén">Resumén:</a></li>
+  <li><a href="#guía-de-uso" id="toc-guía-de-uso" class="nav-link" data-scroll-target="#guía-de-uso">Guía de uso</a>
+  <ul class="collapse">
+  <li><a href="#filtros" id="toc-filtros" class="nav-link" data-scroll-target="#filtros">Filtros</a>
+  <ul class="collapse">
+  <li><a href="#nivel-de-análisis-y-ventas-atípicas" id="toc-nivel-de-análisis-y-ventas-atípicas" class="nav-link" data-scroll-target="#nivel-de-análisis-y-ventas-atípicas">Nivel de análisis y ventas atípicas</a></li>
+  <li><a href="#elementos-sucursal-y-periodo-de-análisis" id="toc-elementos-sucursal-y-periodo-de-análisis" class="nav-link" data-scroll-target="#elementos-sucursal-y-periodo-de-análisis">Elementos, sucursal y periodo de análisis</a></li>
+  </ul></li>
+  <li><a href="#visualizaciones" id="toc-visualizaciones" class="nav-link" data-scroll-target="#visualizaciones">Visualizaciones</a>
+  <ul class="collapse">
+  <li><a href="#gráfica-de-ventas" id="toc-gráfica-de-ventas" class="nav-link" data-scroll-target="#gráfica-de-ventas">Gráfica de Ventas</a></li>
+  <li><a href="#gráfica-de-existencia" id="toc-gráfica-de-existencia" class="nav-link" data-scroll-target="#gráfica-de-existencia">Gráfica de Existencia</a></li>
+  <li><a href="#histograma-de-ventas" id="toc-histograma-de-ventas" class="nav-link" data-scroll-target="#histograma-de-ventas">Histograma de ventas</a></li>
+  <li><a href="#mapa-de-calor" id="toc-mapa-de-calor" class="nav-link" data-scroll-target="#mapa-de-calor">Mapa de Calor</a></li>
+  <li><a href="#kpis" id="toc-kpis" class="nav-link" data-scroll-target="#kpis">KPIs</a></li>
+  <li><a href="#comparación-de-prioridades" id="toc-comparación-de-prioridades" class="nav-link" data-scroll-target="#comparación-de-prioridades">Comparación de prioridades</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#preparación-de-datos" id="toc-preparación-de-datos" class="nav-link" data-scroll-target="#preparación-de-datos">Preparación de datos</a>
+  <ul class="collapse">
+  <li><a href="#carga" id="toc-carga" class="nav-link" data-scroll-target="#carga">Carga</a></li>
+  <li><a href="#procesamiento" id="toc-procesamiento" class="nav-link" data-scroll-target="#procesamiento">Procesamiento</a></li>
+  <li><a href="#diccionario-de-datos" id="toc-diccionario-de-datos" class="nav-link" data-scroll-target="#diccionario-de-datos">Diccionario de datos</a></li>
+  <li><a href="#ingesta-de-datos-históricos" id="toc-ingesta-de-datos-históricos" class="nav-link" data-scroll-target="#ingesta-de-datos-históricos">Ingesta de datos históricos</a></li>
+  </ul></li>
+  <li><a href="#validación-de-datos" id="toc-validación-de-datos" class="nav-link" data-scroll-target="#validación-de-datos">Validación de datos</a></li>
+  <li><a href="#documentación" id="toc-documentación" class="nav-link" data-scroll-target="#documentación">Documentación</a>
+  <ul class="collapse">
+  <li><a href="#licencia" id="toc-licencia" class="nav-link" data-scroll-target="#licencia">Licencia</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -331,7 +366,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">6 de marzo de 2026</p>
+      <p class="date">11 de marzo de 2026</p>
     </div>
   </div>
   
@@ -343,19 +378,142 @@ window.Quarto = {
 </header>
 
 
-<div style="text-align: justify">
 <section id="resumén" class="level1">
 <h1>Resumén:</h1>
+<div style="text-align: justify">
 <p>El objetivo de este proyecto es visualizar la distribución de productos en las sucursales de CT International. Actualmente, la empresa gestiona el aspecto logístico mediante archivos de Excel. Se busca optimizar esta tarea mediante una herramienta intuitiva que permita visualizar la información de manera más eficiente. El éxito del proyecto se evaluará en función de la capacidad del dashboard para proporcionar información valiosa a los usuarios de forma diaria.</p>
-<!---------------------------------------------------------------------------------------------------------------------->
-<!-- PREPARACIÓN DE DATOS -->
-<!---------------------------------------------------------------------------------------------------------------------->
+</div>
+</section>
+<section id="guía-de-uso" class="level1">
+<h1>Guía de uso</h1>
+<section id="filtros" class="level2">
+<h2 class="anchored" data-anchor-id="filtros">Filtros</h2>
+<section id="nivel-de-análisis-y-ventas-atípicas" class="level3">
+<h3 class="anchored" data-anchor-id="nivel-de-análisis-y-ventas-atípicas">Nivel de análisis y ventas atípicas</h3>
+<div style="text-align: justify">
+<p>Es posible realizar los análisis y visualizaciones tanto por productos individuales como por categorías seleccionadas. Asimismo, el usuario puede decidir si incluir o no las ventas atípicas en el análisis.</p>
+<p><strong>Nota</strong>: Al incluir ventas atípicas en el análisis del dashboard puede alterar drásticamente las magnitudes de las gráficas y KPIs.</p>
+</div>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/nivel_anomalas.png?updated=1" alt="ventas" width="500">
+</p>
+</section>
+<section id="elementos-sucursal-y-periodo-de-análisis" class="level3">
+<h3 class="anchored" data-anchor-id="elementos-sucursal-y-periodo-de-análisis">Elementos, sucursal y periodo de análisis</h3>
+<div style="text-align: justify">
+<p>En esta sección se seleccionan los productos a analizar, incluyendo los cuatro que se mostrarán en el gráfico de ventas y el producto principal. Además, se determina la sucursal y el período de análisis</p>
+</div>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/suc_elem_periodo.png?updated=1" alt="ventas" width="500">
+</p>
+</section>
+</section>
+<section id="visualizaciones" class="level2">
+<h2 class="anchored" data-anchor-id="visualizaciones">Visualizaciones</h2>
+<section id="gráfica-de-ventas" class="level3">
+<h3 class="anchored" data-anchor-id="gráfica-de-ventas">Gráfica de Ventas</h3>
+<div style="text-align: justify">
+<p><strong>Objetivo:</strong> Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado.</p>
+<p><strong>Datos utilizados:</strong> De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas.</p>
+<p><strong>Transformaciones:</strong> Se agrupa por la columna de código de producto y fecha para luego sumar las cantidades vendidas. Después, se hace una interpolación linear entre los resultados.</p>
+</div>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/ventas.png?updated=1" alt="ventas" width="700">
+</p>
+<div style="text-align: justify">
+<p><strong>Interpretabilidad</strong> Esta gráfica permite identificar patrones y tendencias de venta tanto a nivel de sucursal como a nivel global. También facilita la comparación entre el desempeño de un producto en cada sucursal y el promedio global, ayudando a detectar comportamientos similares o divergentes.(Sensible a ventas atípicas)</p>
+</div>
+</section>
+<section id="gráfica-de-existencia" class="level3">
+<h3 class="anchored" data-anchor-id="gráfica-de-existencia">Gráfica de Existencia</h3>
+<div style="text-align: justify">
+<p><strong>Objetivo:</strong> Esta gráfica quiere visualizar el comportamiento del inventario de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado.</p>
+<p><strong>Datos utilizados:</strong> De la información de inventario, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades almacenadas.</p>
+<p><strong>Transformaciones:</strong> Se agrupa por la columna de código de producto y fecha para luego sumar las cantidades en existencia. Después, se hace una interpolación linear entre los resultados.</p>
+</div>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/existencia.png?updated=1" alt="ventas" width="700">
+</p>
+<div style="text-align: justify">
+<p><strong>Interpretabilidad</strong> Esta gráfica permite visualizar los niveles de existencia a nivel de sucursal y global. También facilita la comparación entre sucursal y promedio global, ayudando a identificar si un producto mantiene un comportamiento consistente o presenta variaciones respecto al promedio.(Sensible a ventas atípicas)</p>
+</div>
+</section>
+<section id="histograma-de-ventas" class="level3">
+<h3 class="anchored" data-anchor-id="histograma-de-ventas">Histograma de ventas</h3>
+<div style="text-align: justify">
+<p><strong>Objetivo:</strong> Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Esto nos puede dar una idea de cuantas unidades suelen ser pedidas con regularidad. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial. Esta gráfica solo muestra las frecuencias de un elemento a la vez.</p>
+<p><strong>Datos utilizados:</strong> De la información de facturas de venta se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas. <strong>Transformaciones:</strong> Se le aplica a la columna de cantidad de unidades vendidas el gráfico de histograma básico con 100 bins.</p>
+</div>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/hist_ventas.png?updated=1" alt="histograma" width="700">
+</p>
+<div style="text-align: justify">
+<p><strong>Interpretabilidad</strong> Con esta gráfica es posible visualizar patrones en la cantidad de ventas tanto a nivel de sucursal como a nivel global. Además, permite comparar el desempeño de un producto en una sucursal específica frente al promedio global, con el fin de identificar si su comportamiento es similar o diferente.(Sensible a ventas atípicas)</p>
+</div>
+</section>
+<section id="mapa-de-calor" class="level3">
+<h3 class="anchored" data-anchor-id="mapa-de-calor">Mapa de Calor</h3>
+<div style="text-align: justify">
+<p><strong>Objetivo:</strong> Visualizar áreas geográficas en donde hay más actividad de ventas o inventario. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.</p>
+<p><strong>Datos utilizados:</strong>De la información de facturas de venta, se utilizó el código de producto,fecha,estado geográfico de sucursal, y la cantidad de unidades vendidas. <strong>Transformaciones:</strong> Se suman la cantidad de unidades vendidas por estado. Luego, se realiza una unión entre la información geográfica del archivo <code>gadm41_MEX_1.shp</code> y la información calculada sobre la columna del estado geográfico.</p>
+</div>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/mapa_de_calor.png?updated=1" alt="mapa_calor" width="500">
+</p>
+<div style="text-align: justify">
+<p><strong>Interpretabilidad</strong> Con esta gráfica es posible visualizar los patrones de cantidad de ventas por estado. Se quiere identificar zonas con mayor actividad comercial que otras, es decir, aquellas donde se concentra un mayor volumen de ventas.(Sensible a ventas atípicas)</p>
+</div>
+</section>
+<section id="kpis" class="level3">
+<h3 class="anchored" data-anchor-id="kpis">KPIs</h3>
+<div style="text-align: justify">
+<p><strong>Objetivo:</strong> Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las unidades vendidas,costo total, la ganancia total del elemento seleccionado.</p>
+<p><strong>Datos utilizados:</strong> De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal,precio de venta, costo por unidad y la cantidad de unidades vendidas.</p>
+<p><strong>Transformaciones:</strong> Se calcula el ingreso obtenido por venta para despues cálcular el total de unidades vendidas, la ganancia y el costo total. Estos cálculos se realizan a nivel sucursal y nivel global para tener comparación . Para calcular el ritmo de crecimiento de cada KPI, se calcula el valor de este mismo 30 días previo y se utiliza la expresión simple</p>
+</div>
+<p><span class="math display">\[
+\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} * 100 %
+\]</span></p>
+<strong>Ejemplo:KPIs de Ventas</strong>
+<p align="center">
+<img src="plots/kpis_ventas.png?updated=1" alt="mapa_calor" width="500">
+</p>
+<strong>Ejemplo:KPIs de Inventario</strong>
+<p align="center">
+<img src="plots/kpis_inv.png?updated=1" alt="mapa_calor" width="500">
+</p>
+</section>
+<section id="comparación-de-prioridades" class="level3">
+<h3 class="anchored" data-anchor-id="comparación-de-prioridades">Comparación de prioridades</h3>
+<div style="text-align: justify">
+<p><strong>Objetivo:</strong> Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més. El criterio de valor es en base el costo del producto, ya que por lo general se mantiene fijo.</p>
+<p><strong>Datos utilizados:</strong>De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal, y la cantidad de unidades vendidas.</p>
+<p><strong>Transformaciones:</strong> Primero se agrupa la información por elemento y sucursal para calcular las unidades vendidas. Después, calcula el valor aportado por cada producto multiplicando el costo por las ventas totales. Luego, se ordena la información en base el valor y se hace una suma acumulativa total para poder acertar cuanto aportó cada producto al valor adquirido total del periodo especificado. Si el producto aportó al 80% del valor total, se considera de alta prioridad, 15% media y 5% baja.</p>
+</div>
+<strong>Ejemplo:</strong>
+<p align="center">
+<img src="plots/prioridades.png?updated=1" alt="prioridad_productos" width="500">
+</p>
+<div style="text-align: justify">
+<p><strong>Interpretabilidad</strong>: La idea principal es identificar los productos que representan el mayor porcentaje del ingreso total de la sucursal seleccionada. Al visualizar estas prioridades, se busca apoyar la toma de decisiones al momento de surtir productos de manera intuitiv.(Sensible a ventas atípicas)</p>
+</div>
+<!-- Preparación de datos -->
+</section>
+</section>
 </section>
 <section id="preparación-de-datos" class="level1">
 <h1>Preparación de datos</h1>
 <section id="carga" class="level2">
 <h2 class="anchored" data-anchor-id="carga">Carga</h2>
+<div style="text-align: justify">
 <p>Las fuentes de datos principales de cual se extraen los datos crudos vienen siendo :</p>
+</div>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -395,7 +553,9 @@ window.Quarto = {
 </section>
 <section id="procesamiento" class="level2">
 <h2 class="anchored" data-anchor-id="procesamiento">Procesamiento</h2>
+<div style="text-align: justify">
 <p>Primero, se revisa si la tabla local de facturas esta actualizada al día. En caso que no lo esté, se extraen solo las filas que hacen falta y se agregan a la tabla. Una vez que se haya actualizado la información de cada tabla, se pasan por filtros. En caso de los datos de facturas, se tienen que filtrar para tener solo facturas de venta y de productos físicos. Es decir, se omiten suscripciones u otros servicios. Del folio de la factura se extrae la homoclave de la sucursal en cual se realiza la venta para lograr juntar la información de facturas con la información de almacenamiento por sucursal.</p>
+</div>
 </section>
 <section id="diccionario-de-datos" class="level2">
 <h2 class="anchored" data-anchor-id="diccionario-de-datos">Diccionario de datos</h2>
@@ -412,7 +572,7 @@ window.Quarto = {
 <th><strong>Nombre</strong></th>
 <th><strong>Descripción</strong></th>
 <th><strong>Variable</strong></th>
-<th><strong>Formato de variable</strong></th>
+<th><strong>Formato</strong></th>
 <th><strong>Fuente</strong></th>
 </tr>
 </thead>
@@ -541,7 +701,9 @@ window.Quarto = {
 </section>
 <section id="ingesta-de-datos-históricos" class="level2">
 <h2 class="anchored" data-anchor-id="ingesta-de-datos-históricos">Ingesta de datos históricos</h2>
+<div style="text-align: justify">
 <p>Se identificó una limitación importante: no existía un registro histórico de las existencias de productos. Solo se registra la cantidad disponible en un momento determinado, lo que impide trazar la evolución de inventarios a lo largo del tiempo. Esta información es clave tanto para el dashboard como para el proyecto en general de surtimiento. Por ello, se creó la base de datos CT Historico que almacene este historial, permitiendo un análisis más completo y estratégico. Para optimizar espacio de almacenamiento, se quieren guardar y/o actualizar solo cambios de valores, y no documentos completos de manera diaria. El script de ingesta/ctualización de datos históricos ya esta implementada y se esta programada para ser ejecutada diariamente a las 6:00 a.m (UTC-7,tiempo de Hermosillo). Este es el esquema de la colección de tiempo que sigue la tabla de existencias históricas:</p>
+</div>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 12%">
@@ -556,9 +718,9 @@ window.Quarto = {
 <th><strong>Nombre</strong></th>
 <th><strong>Nombre en tabla</strong></th>
 <th><strong>Descripción</strong></th>
-<th><strong>Requerido</strong></th>
-<th><strong>Formato de variable</strong></th>
+<th><strong>Formato</strong></th>
 <th><strong>Fuente</strong></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -566,65 +728,65 @@ window.Quarto = {
 <td><code>_id</code></td>
 <td>_id</td>
 <td>Identificador único del documento</td>
-<td>Sí</td>
 <td>ObjectId</td>
 <td>CT API / tbl_existenciasHistorial</td>
+<td></td>
 </tr>
 <tr class="even">
 <td><code>productoReferencia</code></td>
 <td>productoReferencia</td>
 <td>Metadatos para identificar producto y fuente de datos</td>
-<td>Sí</td>
 <td>Object</td>
 <td>CT API / tbl_existenciasHistorial</td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><code>existenceId</code></td>
 <td>productoReferencia.existenciaId</td>
 <td>Identificador único del documento del cual se extrajo la información</td>
-<td>Sí</td>
 <td>ObjectId</td>
 <td>CT API / tbl_existencias</td>
+<td></td>
 </tr>
 <tr class="even">
 <td><code>productId</code></td>
 <td>productoReferencia.codigo</td>
 <td>Código identificador de producto</td>
-<td>Sí</td>
 <td>Texto / String</td>
 <td>CT API / tbl_existencias</td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><code>active</code></td>
 <td>activo</td>
 <td>Describe si el producto esta actualmente activo</td>
-<td>Sí</td>
 <td>Bool</td>
 <td>CT API / tbl_existencias</td>
+<td></td>
 </tr>
 <tr class="even">
 <td><code>cost</code></td>
 <td>costo</td>
 <td>Cuántas unidades existen por almacen</td>
-<td>Sí</td>
 <td>Array</td>
 <td>Data WareHouse / CAT_ARTICULOS</td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><code>units_stored</code></td>
 <td>almacenes</td>
 <td>Cuántas unidades existen por almacen</td>
-<td>Sí</td>
 <td>Object</td>
 <td>CT API / tbl_existencias</td>
+<td></td>
 </tr>
 <tr class="even">
 <td><code>date_stored</code></td>
 <td>fechaRegistro</td>
 <td>Fecha en la que se capturó y guardó la información en colección</td>
-<td>Sí</td>
 <td>datetime</td>
 <td>CT API / tbl_existenciasHistorial</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -632,6 +794,7 @@ window.Quarto = {
 </section>
 <section id="validación-de-datos" class="level1">
 <h1>Validación de datos</h1>
+<div style="text-align: justify">
 <p>Para obtener valor del dashboard, se requiere tener confianza en que los datos plasmados/utilizados reflejen la realidad. Por esto, es importante tener criterios de validación de estos que aseguren que los datos usados reflejan correctamente la realidad del negocio.</p>
 <ul>
 <li><p><strong>Registros no nulos :</strong> Para nuestro caso, los registros nulos no nos sirven para nada por el momento. Es por ello que los filtraremos del conjunto final de datos.</p></li>
@@ -642,107 +805,8 @@ window.Quarto = {
 <li><p><strong>Rango de fechas dentro de 2020 y actualidad</strong> A nosotros y los usuarios solo nos interesan fechas que se encuentren dentro del periodo del 2020 hasta la actualidad, ya que no hay registro de facturas fuera de este periodo.</p></li>
 <li><p><strong>Facturas únicas:</strong> Esto es para probar que los registros de facturas de venta sean únicos. El criterio que se utiliza es en base los siguientes elementos: código de producto, número de folio, código de cliente y fecha.</p></li>
 </ul>
-</section>
-<section id="guía-rápida" class="level1">
-<h1>Guía Rápida</h1>
-<section id="filtros" class="level2">
-<h2 class="anchored" data-anchor-id="filtros">Filtros</h2>
-<section id="nivel-de-análisis-y-ventas-atípicas" class="level3">
-<h3 class="anchored" data-anchor-id="nivel-de-análisis-y-ventas-atípicas">Nivel de análisis y ventas atípicas</h3>
-<p>Es posible realizar los análisis y visualizaciones tanto por productos individuales como por categorías seleccionadas. Asimismo, el usuario puede decidir si incluir o no las ventas atípicas en el análisis.</p>
-<p><strong>Nota</strong>: Al incluir ventas atípicas en el análisis del dashboard puede alterar drásticamente las magnitudes de las gráficas y KPIs.</p>
-<strong>Ejemplo:</strong>
-<p align="center">
-<img src="plots/nivel_anomalas.png?updated=1" alt="ventas" width="500">
-</p>
-</section>
-<section id="elementos-sucursal-y-periodo-de-análisis" class="level3">
-<h3 class="anchored" data-anchor-id="elementos-sucursal-y-periodo-de-análisis">Elementos, sucursal y periodo de análisis</h3>
-<p>En esta sección se seleccionan los productos a analizar, incluyendo los cuatro que se mostrarán en el gráfico de ventas y el producto principal. Además, se determina la sucursal y el período de análisis</p>
-<strong>Ejemplo:</strong>
-<p align="center">
-<img src="plots/suc_elem_periodo.png?updated=1" alt="ventas" width="500">
-</p>
-<!---------------------------------------------------------------------------------------------------------------------->
-<!-- VISUALIZACIONES -->
-<!---------------------------------------------------------------------------------------------------------------------->
-</section>
-</section>
-<section id="visualizaciones" class="level2">
-<h2 class="anchored" data-anchor-id="visualizaciones">Visualizaciones</h2>
-<section id="gráfica-de-ventas" class="level3">
-<h3 class="anchored" data-anchor-id="gráfica-de-ventas">Gráfica de Ventas</h3>
-<p><strong>Objetivo:</strong> Esta gráfica quiere visualizar el comportamiento de las ventas de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado.</p>
-<p><strong>Datos utilizados:</strong> De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas.</p>
-<p><strong>Transformaciones:</strong> Se agrupa por la columna de código de producto y fecha para luego sumar las cantidades vendidas. Después, se hace una interpolación linear entre los resultados.</p>
-<strong>Ejemplo:</strong>
-<p align="center">
-<img src="plots/ventas.png?updated=1" alt="ventas" width="700">
-</p>
-<p><strong>Interpretabilidad</strong> Esta gráfica permite identificar patrones y tendencias de venta tanto a nivel de sucursal como a nivel global. También facilita la comparación entre el desempeño de un producto en cada sucursal y el promedio global, ayudando a detectar comportamientos similares o divergentes.(Sensible a ventas atípicas)</p>
-</section>
-<section id="gráfica-de-existencia" class="level3">
-<h3 class="anchored" data-anchor-id="gráfica-de-existencia">Gráfica de Existencia</h3>
-<p><strong>Objetivo:</strong> Esta gráfica quiere visualizar el comportamiento del inventario de los productos seleccionados,(máximo 4 productos), para lograr observar posibles tendencias y estacionalidades dentro del periodo seleccionado.</p>
-<p><strong>Datos utilizados:</strong> De la información de inventario, se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades almacenadas.</p>
-<p><strong>Transformaciones:</strong> Se agrupa por la columna de código de producto y fecha para luego sumar las cantidades en existencia. Después, se hace una interpolación linear entre los resultados.</p>
-<strong>Ejemplo:</strong>
-<p align="center">
-<img src="plots/existencia.png?updated=1" alt="ventas" width="700">
-</p>
-<p><strong>Interpretabilidad</strong> Esta gráfica permite visualizar los niveles de existencia a nivel de sucursal y global. También facilita la comparación entre sucursal y promedio global, ayudando a identificar si un producto mantiene un comportamiento consistente o presenta variaciones respecto al promedio.(Sensible a ventas atípicas)</p>
-</section>
-<section id="histograma-de-ventas" class="level3">
-<h3 class="anchored" data-anchor-id="histograma-de-ventas">Histograma de ventas</h3>
-<p><strong>Objetivo:</strong> Queremos visualizar en general la frecuencia de las cantidades pedidas del producto seleccionado. Esto nos puede dar una idea de cuantas unidades suelen ser pedidas con regularidad. Esto ayuda tener una mejor idea en cuanto el umbral mínimo de productos que deben haber en almacen para evitar perder una venta potencial. Esta gráfica solo muestra las frecuencias de un elemento a la vez.</p>
-<p><strong>Datos utilizados:</strong> De la información de facturas de venta se utilizó el código de producto,fecha,clave de sucursal y la cantidad de unidades vendidas. <strong>Transformaciones:</strong> Se le aplica a la columna de cantidad de unidades vendidas el gráfico de histograma básico con 100 bins.</p>
-<strong>Ejemplo:</strong>
-<p align="center">
-<img src="plots/hist_ventas.png?updated=1" alt="histograma" width="700">
-</p>
-<p><strong>Interpretabilidad</strong> Con esta gráfica es posible visualizar patrones en la cantidad de ventas tanto a nivel de sucursal como a nivel global. Además, permite comparar el desempeño de un producto en una sucursal específica frente al promedio global, con el fin de identificar si su comportamiento es similar o diferente.(Sensible a ventas atípicas)</p>
-</section>
-<section id="mapa-de-calor" class="level3">
-<h3 class="anchored" data-anchor-id="mapa-de-calor">Mapa de Calor</h3>
-<p><strong>Objetivo:</strong> Visualizar áreas geográficas en donde hay más actividad de ventas o inventario. Ayuda identificar qué sucursales requieren mantener más productos en almacen por posibles ventas futuras.</p>
-<p><strong>Datos utilizados:</strong>De la información de facturas de venta, se utilizó el código de producto,fecha,estado geográfico de sucursal, y la cantidad de unidades vendidas. <strong>Transformaciones:</strong> Se suman la cantidad de unidades vendidas por estado. Luego, se realiza una unión entre la información geográfica del archivo <code>gadm41_MEX_1.shp</code> y la información calculada sobre la columna del estado geográfico.</p>
-<strong>Ejemplo:</strong>
-<p align="center">
-<img src="plots/mapa_de_calor.png?updated=1" alt="mapa_calor" width="500">
-</p>
-<p><strong>Interpretabilidad</strong> Con esta gráfica es posible visualizar los patrones de cantidad de ventas por estado. Se quiere identificar zonas con mayor actividad comercial que otras, es decir, aquellas donde se concentra un mayor volumen de ventas.(Sensible a ventas atípicas)</p>
-</section>
-<section id="kpis" class="level3">
-<h3 class="anchored" data-anchor-id="kpis">KPIs</h3>
-<p><strong>Objetivo:</strong> Tener a la mano valores claves en la toma de decisiones relacionadas al surtimiento de productos. Los valores que consideramos útiles fueron las unidades vendidas,costo total, la ganancia total del elemento seleccionado.</p>
-<p><strong>Datos utilizados:</strong> De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal,precio de venta, costo por unidad y la cantidad de unidades vendidas.</p>
-<p><strong>Transformaciones:</strong> Se calcula el ingreso obtenido por venta para despues cálcular el total de unidades vendidas, la ganancia y el costo total. Estos cálculos se realizan a nivel sucursal y nivel global para tener comparación . Para calcular el ritmo de crecimiento de cada KPI, se calcula el valor de este mismo 30 días previo y se utiliza la expresión simple <span class="math display">\[
-\text{Ritmo de crecimiento} = \frac{\text{Valor de periodo actual}-\text{Valor de periodo anterior}}{\text{Valor de periodo anterior}} * 100 %
-\]</span></p>
-<strong>Ejemplo:KPIs de Ventas</strong>
-<p align="center">
-<img src="plots/kpis_ventas.png?updated=1" alt="mapa_calor" width="500">
-</p>
-<strong>Ejemplo:KPIs de Inventario</strong>
-<p align="center">
-<img src="plots/kpis_inv.png?updated=1" alt="mapa_calor" width="500">
-</p>
-</section>
-<section id="comparación-de-prioridades" class="level3">
-<h3 class="anchored" data-anchor-id="comparación-de-prioridades">Comparación de prioridades</h3>
-<p><strong>Objetivo:</strong> Visualizar productos con prioridad junto con la cantidad de ventas que aportaron durante el periodo. El criterio de prioridad que se utiliza para asignarle magnitud de prioridad a cada producto es en base cuanto valor aporta al valor total del més. El criterio de valor es en base el costo del producto, ya que por lo general se mantiene fijo.</p>
-<p><strong>Datos utilizados:</strong>De la información de facturas de venta, se utilizó el código de producto,fecha,clave de sucursal, y la cantidad de unidades vendidas.</p>
-<p><strong>Transformaciones:</strong> Primero se agrupa la información por elemento y sucursal para calcular las unidades vendidas. Después, calcula el valor aportado por cada producto multiplicando el costo por las ventas totales. Luego, se ordena la información en base el valor y se hace una suma acumulativa total para poder acertar cuanto aportó cada producto al valor adquirido total del periodo especificado. Si el producto aportó al 80% del valor total, se considera de alta prioridad, 15% media y 5% baja.</p>
-<strong>Ejemplo:</strong>
-<p align="center">
-<img src="plots/prioridades.png?updated=1" alt="prioridad_productos" width="500">
-</p>
-<p><strong>Interpretabilidad</strong>: La idea principal es identificar los productos que representan el mayor porcentaje del ingreso total de la sucursal seleccionada. Al visualizar estas prioridades, se busca apoyar la toma de decisiones al momento de surtir productos de manera intuitiv.(Sensible a ventas atípicas)</p>
-<!---------------------------------------------------------------------------------------------------------------------->
-<!-- DOCUMENTACIÓN -->
-<!---------------------------------------------------------------------------------------------------------------------->
-</section>
-</section>
+</div>
+<!-- Documentación -->
 </section>
 <section id="documentación" class="level1">
 <h1>Documentación</h1>
@@ -750,11 +814,10 @@ window.Quarto = {
 <section id="licencia" class="level2">
 <h2 class="anchored" data-anchor-id="licencia">Licencia</h2>
 <p>Este proyecto se rige bajo la licencia de MIT.</p>
-</section>
-</section>
-</div>
 
 
+</section>
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
