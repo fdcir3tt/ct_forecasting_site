@@ -1,0 +1,160 @@
+---
+title: "Modelos Prónosticos"
+format: 
+  html:
+    page-layout: article
+    toc-title: "Tabla de Contenidos"
+    toc: true
+    toc-depth: 3
+    toc-location: right
+reference-location: margin
+citation-location: margin
+date: last-modified
+date-format: long
+lang: es
+
+---
+
+# Plantamiento y motivación
+
+## Comprensión del Negocio
+
+::: {style="text-align: justify"}
+
+El negocio de CT International depende en gran medida de que sus procesos logísticos se ejecuten de la manera más eficiente posible. Esto permite minimizar la pérdida de ventas potenciales y, al mismo tiempo, evitar la acumulación de inventario sin movimiento.
+
+En este contexto, resulta muy valioso para la empresa conocer con mayor precisión la cantidad de ventas de sus productos físicos, ya que esto mejora la toma de decisiones relacionadas con el surtido y la reposición de productos. En esencia, se trata de un problema de pronóstico de ventas.
+
+Actualmente, CT cuenta con un proceso heurístico que se ha perfeccionado durante los últimos 20 años. Sin embargo, la empresa busca ahora dar el siguiente paso mediante la implementación de soluciones basadas en inteligencia artificial.
+
+:::
+
+
+## Problema traducido a Machine Learning
+
+::: {style="text-align: justify"}
+
+En términos de aprendizaje automático, nos enfrentamos a un problema de **regresión sobre series temporales**. Este tipo de problemas requiere considerar diversos factores, como la estacionalidad de los datos, tendencias, el desplazamiento de covariables o del concepto, y la definición de ventanas de análisis, entre otros.
+
+Todos estos elementos son necesarios para formular y abordar el problema de manera adecuada y reproducible; sin embargo, su tratamiento no es trivial. El fenómeno de las ventas es un proceso dinámico y evolutivo, por lo que debe mantenerse bajo monitoreo constante. Una solución que funciona correctamente hoy puede dejar de ser efectiva en el futuro cercano debido a cambios en el comportamiento del mercado o en los datos.
+
+Afortunadamente, el aprendizaje automático ofrece diversos algoritmos y metodologías que permiten abordar estos desafíos. Entre ellos destacan modelos como XGBoost, redes neuronales de memoria a corto plazo (LSTM) y prácticas de MLOps, que facilitan tanto el desarrollo como el mantenimiento continuo de soluciones de predicción.
+
+:::
+
+
+# Criterios de éxito
+
+::: {style="text-align: justify"}
+
+**Objetivos del negocio**: Sustituir el modelo heurístico actualmente utilizado por CT International por un modelo basado en métodos de aprendizaje automático. El propósito es mejorar la precisión en el pronóstico de ventas y fortalecer la toma de decisiones relacionadas con la planeación logística, el surtido de productos y la gestión de inventarios. Con un modelo más robusto y basado en datos, la empresa podrá reducir pérdidas por falta de inventario y, al mismo tiempo, evitar acumulación de productos con baja rotación.
+
+**Objetivos de Machine Learning**: Desarrollar un modelo de pronóstico que muestre un rendimiento igual o superior y consistente en comparación con el modelo heurístico actual. Esto implica evaluar diferentes algoritmos, validar su desempeño mediante métricas apropiadas para series temporales y que el modelo pueda generalizar adecuadamente ante cambios en los patrones de venta.
+
+Como primera meta viable, se busca alcanzar un nivel inicial de madurez en MLOps (Nivel 1). Esto implica contar con un pipeline básico pero reproducible para el entrenamiento, evaluación y actualización del modelo, así como con mecanismos de monitoreo que permitan detectar degradaciones en su desempeño. De esta manera, el modelo de aprendizaje automático podrá integrarse gradualmente al proceso operativo de la empresa como sustituto del enfoque heurístico actual, sentando las bases para una evolución futura hacia sistemas más automatizados y escalables
+
+:::
+
+# Diseño MLOps
+::: {style="text-align: justify"}
+
+El proceso es conceptualmente simple, pero no necesariamente sencillo de implementar. La idea central consiste en construir _pipelines_ que abarquen todo el flujo de trabajo: desde la extracción y procesamiento de datos crudos, pasando por la preparación y entrenamiento de los modelos, hasta su despliegue y monitoreo en producción.
+
+El objetivo es establecer un ecosistema de trabajo **reproducible**, **sostenible** y **monitoreable**, que permita entrenar, evaluar y actualizar modelos de manera sistemática. Este enfoque no solo facilita la mejora continua del rendimiento de los modelos, sino que también permite detectar oportunamente problemas como degradación del modelo, cambios en la distribución de los datos o fallos en los procesos de ingestión.
+
+Como diseño preliminar, la estructura general propuesta contempla una arquitectura basada en _pipelines_ de datos y de machine learning, los cuales automatizan las distintas etapas del ciclo de vida del modelo. Esta arquitectura puede representarse de manera visual en la siguiente figura:
+:::
+
+<p align="center">
+  <img src="_static/mlops/esquema_mlops.png?updated=1" alt="esquema_mlops" width="500">
+</p>
+
+
+# Modelos candidatos
+::: {style="text-align: justify"}
+En la selección de modelos candidatos, se sigue un enfoque incremental: primero se evalúan soluciones simples y fácilmente interpretables, y posteriormente se consideran modelos más complejos si es necesario. Este enfoque permite establecer una línea base clara, facilitar la interpretación de resultados y reducir la complejidad inicial del sistema.
+
+Por esta razón, se comenzará con modelos sencillos que han demostrado ser efectivos en tareas de **pronóstico de ventas**. Estos modelos permiten obtener resultados iniciales confiables y sirven como punto de referencia para comparar el desempeño de enfoques más avanzados que podrían incorporarse en etapas posteriores del proyecto
+
+:::
+
+## XGBoost
+::: {style="text-align: justify"}
+El modelo **XGBoost (Extreme Gradient Boosting)** es un algoritmo de aprendizaje automático basado en árboles de decisión ensamblados mediante técnicas de gradient boosting. Su funcionamiento consiste en entrenar una secuencia de árboles donde cada nuevo árbol aprende a corregir los errores cometidos por los anteriores. Este enfoque permite construir modelos altamente predictivos que capturan relaciones complejas y no lineales en los datos.
+
+En el contexto del pronóstico de ventas, XGBoost resulta especialmente útil porque puede incorporar múltiples variables explicativas además de las ventas históricas. Por ejemplo, es posible incluir variables como tendencias temporales, estacionalidad, promociones, comportamiento histórico por producto, ventanas de tiempo (lags), promedios móviles u otros indicadores derivados de la serie temporal. Esto permite al modelo capturar patrones complejos que un enfoque heurístico difícilmente podría modelar de manera consistente.
+
+Una de las principales ventajas de XGBoost es su alto rendimiento predictivo, lo cual lo ha convertido en uno de los algoritmos más utilizados en problemas de **regresión estructurada**. Además, ofrece varias características que lo hacen adecuado para un entorno productivo:
+
+- **Robustez ante distintos tipos de datos**: incluye datos incompletos o ruidosos.
+
+- **Regularización integrada**: ayuda a reducir el sobreajuste y mejorar la capacidad de generalización.
+
+- **Alta eficiencia computacional**: permite entrenar modelos con grandes volúmenes de datos de manera relativamente rápida.
+
+- **Interpretabilidad relativa**: es posible analizar la importancia de las variables para entender qué factores influyen más en las predicciones.
+
+Su capacidad para trabajar con _feature engineering_ permite integrar múltiples señales relevantes del negocio dentro del proceso de predicción. Finalmente, su implementación es relativamente compatible con pipelines de MLOps, lo que facilita su entrenamiento periódico, evaluación automática y despliegue dentro de un ecosistema monitoreable.
+
+En resumén, XGBoost representa un equilibrio adecuado entre rendimiento, interpretabilidad y facilidad de implementación, lo que lo convierte en un candidato ideal para las primeras etapas de modernización del sistema de pronóstico de ventas de la empresa. Con el tiempo, los resultados obtenidos con este modelo también pueden servir como punto de comparación para evaluar enfoques más avanzados, como redes neuronales especializadas en series temporales
+
+[Más información acerca del modelo](https://xgboost.readthedocs.io/en/stable/tutorials/model.html)
+:::
+
+
+
+## ARIMA
+::: {style="text-align: justify"}
+
+El modelo **ARIMA (AutoRegressive Integrated Moving Average)** es uno de los enfoques clásicos más utilizados para el análisis y pronóstico de series temporales. Este modelo se basa en la idea de que los valores futuros de una serie pueden estimarse a partir de combinaciones de sus valores pasados y de los errores de predicción previos. En términos generales, ARIMA modela tres componentes principales: la **autoregresión (AR)**, que captura la relación entre observaciones pasadas; la **integración (I)**, que permite transformar la serie para hacerla estacionaria; y el **promedio móvil (MA)**, que modela la dependencia de los errores a lo largo del tiempo.
+
+En el contexto del pronóstico de ventas, ARIMA permite modelar de manera explícita la estructura temporal de los datos, capturando patrones como tendencias y estacionalidad cuando se utilizan extensiones como el modelo **SARIMA (Seasonal ARIMA)**. Este tipo de modelos ha sido ampliamente utilizado en aplicaciones de planificación de demanda, inventarios y análisis económico, lo que lo convierte en un punto de partida sólido para abordar el problema.
+
+Una de las principales ventajas de ARIMA es su **interpretabilidad** y **fundamento estadístico**. A diferencia de muchos modelos de aprendizaje automático más complejos, ARIMA permite entender con mayor claridad cómo los valores pasados de la serie influyen en las predicciones futuras. Además, su estructura facilita el análisis de la dinámica temporal del fenómeno de ventas, lo que puede aportar información valiosa para el negocio.
+
+Dentro del proyecto, ARIMA puede aportar valor en varios aspectos importantes:
+
+- **Modelo base interpretable**: puede servir como una línea base clara para comparar el desempeño de modelos más complejos.
+
+- **Captura explícita de patrones temporales**: permite modelar tendencias, autocorrelaciones y estacionalidades presentes en los datos de ventas.
+
+- **Simplicidad relativa de implementación**: su integración dentro de un pipeline de entrenamiento es relativamente directa.
+
+- **Diagnóstico estadístico**: facilita analizar si los patrones de ventas cambian en el tiempo mediante el estudio de residuos y autocorrelaciones.
+
+ARIMA puede funcionar como uno de los primeros modelos formales evaluados, proporcionando una referencia estadísticamente sólida. Además, su comparación con modelos basados en aprendizaje automático como **XGBoost** permitirá entender mejor qué tipo de enfoque captura de manera más efectiva la dinámica evolutiva del fenómeno de ventas.
+
+ARIMA aporta simplicidad, interpretabilidad y una base estadística sólida, lo que lo convierte en un candidato natural para las primeras etapas del desarrollo del sistema de pronóstico dentro del ecosistema de machine learning y MLOps propuesto.
+
+
+[Más información acerca del modelo](https://www.probabilidadyestadistica.net/modelo-arima/)
+:::
+
+
+
+## LSTM
+::: {style="text-align: justify"}
+El modelo LSTM (Long Short-Term Memory) es un tipo de red neuronal recurrente (RNN) diseñada específicamente para trabajar con datos secuenciales y series temporales. A diferencia de los modelos tradicionales, las LSTM están construidas para capturar dependencias a corto y largo plazo dentro de una secuencia de datos. Esto se logra mediante una arquitectura interna basada en celdas de memoria y puertas de control (gates), que permiten al modelo decidir qué información conservar, qué olvidar y qué utilizar para generar una predicción.
+
+En el contexto del pronóstico de ventas, este tipo de modelo resulta particularmente atractivo porque el comportamiento de las ventas suele depender de patrones complejos a lo largo del tiempo. Por ejemplo, las LSTM pueden aprender relaciones no lineales entre eventos pasados, tendencias de largo plazo, ciclos estacionales y cambios en la dinámica del mercado. Esta capacidad permite modelar fenómenos que pueden resultar difíciles de capturar con métodos estadísticos tradicionales o con modelos basados únicamente en variables estructuradas.
+
+Una ventaja importante de las LSTM es su capacidad para aprender directamente de secuencias temporales, reduciendo en algunos casos la necesidad de diseñar manualmente muchas variables derivadas (feature engineering). El modelo puede procesar ventanas de tiempo completas de ventas históricas y aprender automáticamente patrones relevantes dentro de esas secuencias.
+
+Dentro del proyecto, el uso de LSTM puede aportar valor en varios aspectos:
+
+- **Modelado de patrones complejos**: permite capturar relaciones no lineales y dependencias temporales de largo alcance en los datos de ventas.
+
+- **Aprendizaje automático de patrones temporales**: puede identificar estructuras en los datos que no son evidentes mediante métodos más simples.
+
+- **Flexibilidad para integrar múltiples variables**: además de las ventas históricas, el modelo puede incorporar variables adicionales relevantes para el comportamiento de la demanda.
+
+- **Potencial de mejora en precisión predictiva**: en escenarios con suficiente volumen de datos, las redes neuronales pueden superar a modelos más simples.
+
+Sin embargo, también es importante considerar que las LSTM suelen requerir mayor cantidad de datos, mayor capacidad computacional y procesos de entrenamiento más complejos. Además, su interpretabilidad es menor en comparación con modelos como **ARIMA** o **XGBoost**.
+
+Por esta razón, dentro de la estrategia del proyecto, las LSTM pueden evaluarse como un modelo avanzado después de establecer líneas base sólidas con enfoques más simples. Su incorporación permitiría explorar si un enfoque basado en deep learning logra capturar con mayor fidelidad la naturaleza dinámica y evolutiva del fenómeno de ventas.
+
+En conjunto, las LSTM representan una alternativa poderosa para el sistema de pronóstico propuesto, especialmente en etapas posteriores del desarrollo del proyecto, cuando el ecosistema de pipelines de datos, entrenamiento y monitoreo dentro del marco de MLOps ya se encuentre bien establecido.
+
+[Más información acerca del modelo](https://www.geeksforgeeks.org/deep-learning/deep-learning-introduction-to-long-short-term-memory/)
+:::
