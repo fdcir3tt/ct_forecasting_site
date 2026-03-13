@@ -3,7 +3,7 @@ title: "Modelos Prónosticos"
 format: 
   html:
     page-layout: article
-    toc-title: "Tabla de Contenidos"
+    toc-title: ""
     toc: true
     toc-depth: 3
     toc-location: right
@@ -66,7 +66,7 @@ Como diseño preliminar, la estructura general propuesta contempla una arquitect
 :::
 
 <p align="center">
-  <img src="_static/mlops/esquema_mlops.png?updated=1" alt="esquema_mlops" width="500">
+  <img src="@/mlops/esquema_mlops.png?updated=1" alt="esquema_mlops" width="500">
 </p>
 
 
