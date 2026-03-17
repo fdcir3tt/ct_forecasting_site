@@ -33,7 +33,7 @@ Es posible realizar los análisis y visualizaciones tanto por productos individu
 
 **Ejemplo:**
 <p align="center">
-  <img src="_static/dashboard/nivel_anomalas.png" alt="ventas" width="500">
+  <img src="static/dashboard/nivel_anomalas.png" alt="ventas" width="500">
 </p>
 
 
@@ -45,7 +45,7 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
 
 **Ejemplo:**
 <p align="center">
-  <img src="_static/dashboard/suc_elem_periodo.png" alt="ventas" width="500">
+  <img src="static/dashboard/suc_elem_periodo.png" alt="ventas" width="500">
 </p>
 
 
@@ -65,7 +65,7 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
 
 **Ejemplo:**
 <p align="center">
-  <img src="_static/dashboard/ventas.png" alt="ventas" width="700">
+  <img src="static/dashboard/ventas.png" alt="ventas" width="700">
 </p>
 
 ::: {style="text-align: justify"}
@@ -84,7 +84,7 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
 
 **Ejemplo:**
 <p align="center">
-  <img src="_static/dashboard/existencia.png" alt="ventas" width="700">
+  <img src="static/dashboard/existencia.png" alt="ventas" width="700">
 </p>
 
 ::: {style="text-align: justify"}
@@ -102,7 +102,7 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
 
 **Ejemplo:**
 <p align="center">
-  <img src="_static/dashboard/hist_ventas.png" alt="histograma" width="700">
+  <img src="static/dashboard/hist_ventas.png" alt="histograma" width="700">
 </p>
 
 ::: {style="text-align: justify"}
@@ -120,7 +120,7 @@ En esta sección se seleccionan los productos a analizar, incluyendo los cuatro 
 
 **Ejemplo:**
 <p align="center">
-  <img src="_static/dashboard/mapa_de_calor.png?updated=1" alt="mapa_calor" width="500" >
+  <img src="static/dashboard/mapa_de_calor.png?updated=1" alt="mapa_calor" width="500" >
 </p>
 
 ::: {style="text-align: justify"}
@@ -142,11 +142,11 @@ $$
 
 **Ejemplo:KPIs de Ventas**
 <p align="center">
-  <img src="_static/dashboard/kpis_ventas.png" alt="mapa_calor" width="500" >
+  <img src="static/dashboard/kpis_ventas.png" alt="mapa_calor" width="500" >
 </p>
 **Ejemplo:KPIs de Inventario**
 <p align="center">
-  <img src="_static/dashboard/kpis_inv.png" alt="mapa_calor" width="500" >
+  <img src="static/dashboard/kpis_inv.png" alt="mapa_calor" width="500" >
 </p>
 
 ### Comparación de prioridades
@@ -161,7 +161,7 @@ $$
 
 **Ejemplo:**
 <p align="center">
-  <img src="_static/dashboard/prioridades.png" alt="prioridad_productos" width="500">
+  <img src="static/dashboard/prioridades.png" alt="prioridad_productos" width="500">
 </p>
 
 ::: {style="text-align: justify"}

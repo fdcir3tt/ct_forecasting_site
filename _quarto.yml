@@ -1,7 +1,7 @@
 project:
   type: website
   resources: 
-    - _static/**
+    - static/
   output-dir: docs
   render: # Renderizar todos los archivos .qmd
     - home.qmd
